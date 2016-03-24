@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 /*        new CountDownTimer(5000, 1000) {
+test
             public void onTick(long millisUntilFinished) {
                 TextView totalTime = (TextView) findViewById(R.id.total_time);
                 TextView notificationCountDown = (TextView) findViewById(R.id.notification_count_down);
