@@ -1,5 +1,8 @@
 package com.example.user1.tellmetimer;
 
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
@@ -25,25 +28,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-/*        new CountDownTimer(5000, 1000) {
-test
-            public void onTick(long millisUntilFinished) {
-                TextView totalTime = (TextView) findViewById(R.id.total_time);
-                TextView notificationCountDown = (TextView) findViewById(R.id.notification_count_down);
-                notificationCountDown.setText("seconds remaining: " + millisUntilFinished / 1000);
-            }
-
-            public void onFinish() {
-                TextView notificationCountDown = (TextView) findViewById(R.id.notification_count_down);
-                notificationCountDown.setText("done!");
-            }
-        }.start();*/
-
         Timer clock = new Timer();
+        // clock.onSecondTick(task);
         TimerTask task = new TimerTask() {
             TextView totalTime = (TextView) findViewById(R.id.total_time);
             TextView notificationCountDown = (TextView) findViewById(R.id.notification_count_down);
-            int alarmTimeFrequencyInSeconds =  60 * 5;
+            final int ALARM_FREQUENCY_IN_SECONDS =  30;
 
             int seconds = 0;
             @Override
@@ -51,15 +41,32 @@ test
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        int durationUntilNextAlarm = alarmTimeFrequencyInSeconds - seconds;
+                        int durationSinceLastAlarm = seconds % ALARM_FREQUENCY_IN_SECONDS;
+                        int durationUntilNextAlarm = ALARM_FREQUENCY_IN_SECONDS - durationSinceLastAlarm;
                         totalTime.setText(seconds + "");
                         notificationCountDown.setText(durationUntilNextAlarm + "");
                         seconds++;
+                        if (durationUntilNextAlarm == 0) {
+                            //speak alarm
+                            soundAlarm();
+                        }
+
                     }
                 });
             }
         };
 
         clock.scheduleAtFixedRate(task,0, 1000);
+    }
+
+    public void soundAlarm() {
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+            r.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
