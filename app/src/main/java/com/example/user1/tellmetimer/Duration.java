@@ -1,6 +1,7 @@
 package com.example.user1.tellmetimer;
 
 public class Duration {
+    // TODO maybe extend from Date()
 
     public int minutes;
     public int seconds;
@@ -26,6 +27,7 @@ public class Duration {
 
     @Override
     public String toString() {
+        // TODO should formatting be its own class?
         return this.minutesToString() + " " + this.secondsToString();
     }
 

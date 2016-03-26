@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             TextView notificationCountDown = (TextView) findViewById(R.id.notification_count_down);
             CheckBox sayCurrentTimeCheckBox = (CheckBox) findViewById(R.id.check_box_current_time);
             CheckBox sayTotalTimeCheckBox = (CheckBox) findViewById(R.id.check_box_total_duration);
-            final int ALARM_FREQUENCY_IN_SECONDS = 30;
+            final int ALARM_FREQUENCY_IN_SECONDS = 30; // TODO make duration
             Duration duration = new Duration();
 
             @Override
@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
             public void update() {
                 int seconds = duration.seconds + (duration.minutes * 60);
-                int durationSinceLastAlarm = seconds % ALARM_FREQUENCY_IN_SECONDS;
+                int durationSinceLastAlarm = seconds % ALARM_FREQUENCY_IN_SECONDS; // TODO duration - duration = duration
                 int durationUntilNextAlarm = ALARM_FREQUENCY_IN_SECONDS - durationSinceLastAlarm;
                 totalTime.setText(duration.toString());
-                notificationCountDown.setText(durationUntilNextAlarm + "");
+                notificationCountDown.setText(durationUntilNextAlarm + ""); //TODO duration as mm:ss
                 duration.tick();
                 if (seconds % ALARM_FREQUENCY_IN_SECONDS == 0) {
                     sayTheRightThings();
