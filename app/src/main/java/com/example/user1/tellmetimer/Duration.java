@@ -2,37 +2,55 @@ package com.example.user1.tellmetimer;
 
 public class Duration {
 
-    private int seconds;
-    private int minutes;
+    public int minutes;
+    public int seconds;
 
     public Duration() {
-        this.seconds = 0;
         this.minutes = 0;
+        this.seconds = 0;
+    }
+
+    public Duration(int minutes, int seconds) {
+        this.minutes = minutes;
+        this.seconds = seconds;
     }
 
     public void tick() {
         final int SECONDS_PER_MINUTE = 60;
-        // TODO might have a one off.
-        if (SECONDS_PER_MINUTE < this.seconds) {
+        this.seconds++;
+        if (SECONDS_PER_MINUTE <= this.seconds) {
             this.minutes++;
             this.seconds = 0;
         }
-        this.seconds++;
-    }
-
-    public int getAsSeconds() {
-        return this.seconds;
     }
 
     @Override
     public String toString() {
-        String message = "";
-        if (minutes != 0) {
-            message = message + " " + minutes + " minutes";
+        return this.minutesToString() + " " + this.secondsToString();
+    }
+
+    private String minutesToString() {
+        if (isThereAny(this.minutes)) {
+            return getProperSubjectVerbAgreement(this.minutes, "minute", "minutes");
         }
-        if (seconds != 0) {
-            message = message + " " + seconds + " seconds.";
+        return "";
+    }
+
+    private String secondsToString() {
+        if (isThereAny(this.seconds)) {
+            return getProperSubjectVerbAgreement(this.seconds, "second", "seconds");
         }
-        return message;
+        return "";
+    }
+
+    private boolean isThereAny(int count) {
+        return count != 0;
+    }
+
+    private String getProperSubjectVerbAgreement(int count, String singular, String plural) {
+        if (count == 1) {
+            return "1 " + singular;
+        }
+        return count + " " + plural;
     }
 }
