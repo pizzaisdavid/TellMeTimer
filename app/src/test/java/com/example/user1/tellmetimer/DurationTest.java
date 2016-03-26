@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         DurationTest.initializer.class,
-        DurationTest.formatter.class
+        DurationTest.tick.class
 })
 
 public class DurationTest extends TestCase {
@@ -26,21 +26,31 @@ public class DurationTest extends TestCase {
 
         @Test
         public void doubleZero() throws Exception {
-            Assert.assertEquals(40, 9);
+            //Assert.assertEquals(40, 9);
         }
 
         @Test
         public void singleDigitSeconds() throws Exception {
-            Assert.assertEquals(9, 9);
+            //Assert.assertEquals(9, 9);
         }
-
     }
 
-    public static class formatter {
+    public static class tick {
 
         @Test
-        public void GetFormattedForDisplay_() throws Exception {
-            Assert.assertEquals(":09", "5");
+        public void runOnce() throws Exception {
+            Duration duration = new Duration(0, 20);
+            duration.tick();
+            Assert.assertEquals(0, duration.minutes);
+            Assert.assertEquals(21, duration.seconds);
+        }
+
+        @Test
+        public void convertToMinute() throws Exception {
+            Duration duration = new Duration(0, 59);
+            duration.tick();
+            Assert.assertEquals(1, duration.minutes);
+            Assert.assertEquals(0, duration.seconds);
         }
     }
 }
