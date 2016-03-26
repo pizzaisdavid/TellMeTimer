@@ -48,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void update() {
-                int seconds = duration.getAsSeconds();
+                int seconds = duration.seconds + (duration.minutes * 60);
                 int durationSinceLastAlarm = seconds % ALARM_FREQUENCY_IN_SECONDS;
                 int durationUntilNextAlarm = ALARM_FREQUENCY_IN_SECONDS - durationSinceLastAlarm;
                 totalTime.setText(duration.toString());
                 notificationCountDown.setText(durationUntilNextAlarm + "");
                 duration.tick();
-                if (durationUntilNextAlarm == 1) {
+                if (seconds % ALARM_FREQUENCY_IN_SECONDS == 0) {
                     sayTheRightThings();
                 }
             }
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 DateFormat dateFormat = new SimpleDateFormat("h:mm a");
                 boolean isCurrentTimeBoxChecked = sayCurrentTimeCheckBox.isChecked();
                 boolean isTotalTimeBoxChecked = sayTotalTimeCheckBox.isChecked();
-                // mute other audio as notification plays
+                // TODO mute other audio as notification plays
                 if (isCurrentTimeBoxChecked) {
                     voice.say("It is currently " + dateFormat.format(new Date()));
                 }
@@ -71,8 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     voice.sayNothing(500);
                 }
                 if (isTotalTimeBoxChecked) {
-                    String durationText = duration.toString();
-                    voice.say("This timer has been running for " + durationText); // TODO add minutes and seconds
+                    voice.say("This timer has been running for " +  duration.toString());
                 }
             }
         };
