@@ -32,20 +32,22 @@
         android:layout_x="80dp"
         android:layout_y="200dp"
         android:checked="true"
-        android:layout_below="@+id/check_box_total_time"
-        android:layout_alignLeft="@+id/check_box_total_time"
-        android:layout_alignStart="@+id/check_box_total_time" />
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/check_box_total_duration"
+        android:layout_alignStart="@+id/check_box_total_duration" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Total Time"
-        android:id="@+id/check_box_total_time"
+        android:text="Total Duration"
+        android:id="@+id/check_box_total_duration"
         android:layout_x="80dp"
         android:layout_y="230dp"
         android:checked="true"
-        android:layout_below="@+id/textView"
-        android:layout_alignRight="@+id/textView"
-        android:layout_alignEnd="@+id/textView" />
+        android:layout_below="@+id/check_box_current_time"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp" />
 
 </RelativeLayout>
