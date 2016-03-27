@@ -5,6 +5,8 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.CheckBox;
+import android.widget.Chronometer;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.text.DateFormat;
@@ -26,15 +28,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         voice = new Voice(this);
-        audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        Timer clock = new Timer();
+        // Chronometer m = (Chronometer) findViewById(R.id.chronometer); TODO maybe switch to chrono
+        // m.start();
+        final Timer clock = new Timer();
         TimerTask task = new TimerTask() {
             TextView totalTime = (TextView) findViewById(R.id.total_time);
-            TextView notificationCountDown = (TextView) findViewById(R.id.notification_count_down);
+            TextView countDown = (TextView) findViewById(R.id.count_down);
+            TextView alarmFrequencyText = (TextView) findViewById(R.id.alarm_frequency_text);
             CheckBox sayCurrentTimeCheckBox = (CheckBox) findViewById(R.id.check_box_current_time);
             CheckBox sayTotalTimeCheckBox = (CheckBox) findViewById(R.id.check_box_total_duration);
-            final int ALARM_FREQUENCY_IN_SECONDS = 30; // TODO make duration
-            Duration duration = new Duration();
+            SeekBar alarmFrequency = (SeekBar) findViewById(R.id.alarm_frequency);
+            TimePeriod duration = new TimePeriod();
+            int alarmFrequencyInSeconds = 60;
+
 
             @Override
             public void run() {
@@ -48,18 +54,34 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void update() {
-                int seconds = duration.seconds + (duration.minutes * 60);
-                int durationSinceLastAlarm = seconds % ALARM_FREQUENCY_IN_SECONDS; // TODO duration - duration = duration
-                int durationUntilNextAlarm = ALARM_FREQUENCY_IN_SECONDS - durationSinceLastAlarm;
-                totalTime.setText(duration.toString());
-                notificationCountDown.setText(durationUntilNextAlarm + ""); //TODO duration as mm:ss
-                duration.tick();
-                if (seconds % ALARM_FREQUENCY_IN_SECONDS == 0) {
-                    sayTheRightThings();
+                TimePeriod untilNextAlarm = getTimeUntilNextAlarm();
+                this.duration.tick();
+
+                int alarmFrequencyInMinutes = alarmFrequency.getProgress() + 1;
+                this.alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60;
+                this.alarmFrequencyText.setText(formatAlarmFrequency(alarmFrequencyInMinutes));
+
+                this.totalTime.setText(TimePeriodFormat.simple(this.duration));
+                this.countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
+                if (untilNextAlarm.getSeconds() == 1) {
+                    voiceNotification();
                 }
             }
 
-            public void sayTheRightThings() {
+            private TimePeriod getTimeUntilNextAlarm() {
+                int timeSinceLastAlarm = this.duration.getSeconds() % this.alarmFrequencyInSeconds;
+                return new TimePeriod(this.alarmFrequencyInSeconds - timeSinceLastAlarm);
+            }
+
+            private String formatAlarmFrequency(int count) {
+                final String base = "Sound the alarm every ";
+                if (count == 1) {
+                    return base + "minute.";
+                }
+                return base + count + " minutes.";
+            }
+
+            public void voiceNotification() {
                 DateFormat dateFormat = new SimpleDateFormat("h:mm a");
                 boolean isCurrentTimeBoxChecked = sayCurrentTimeCheckBox.isChecked();
                 boolean isTotalTimeBoxChecked = sayTotalTimeCheckBox.isChecked();
@@ -71,10 +93,11 @@ public class MainActivity extends AppCompatActivity {
                     voice.sayNothing(500);
                 }
                 if (isTotalTimeBoxChecked) {
-                    voice.say("This timer has been running for " +  duration.toString());
+                    voice.say("This timer has been running for " + TimePeriodFormat.simple(this.duration));
                 }
             }
         };
         clock.scheduleAtFixedRate(task, 0, 1000);
     }
+    // TODO add start button
 }
