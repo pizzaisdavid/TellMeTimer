@@ -15,7 +15,7 @@
         android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:id="@+id/alarm_frequency_text"
-        android:text="Sound the alarm every minute."
+        android:text="Sound the alarm every 2 minutes."
         android:layout_above="@+id/alarm_frequency"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
