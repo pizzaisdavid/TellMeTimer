@@ -30,25 +30,13 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="00:00"
-        android:id="@+id/notification_count_down"
+        android:id="@+id/count_down"
         android:layout_marginTop="50dp"
         android:layout_y="30dp" />
-
-    <TextView
-        android:layout_width="353dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText"
-        android:text="Sound the alarm every 5 minutes."
-        android:layout_below="@+id/notification_count_down"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="132dp" />
 
 
     <include layout="@layout/timer_settings"
         android:id="@+id/include" />
-
-    />
 
 
 </RelativeLayout>
