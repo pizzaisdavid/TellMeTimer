@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         // -- Five minutes remaining, three minutes remaining...
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        voice = new Voice(this);
+        voice = new Voice(this, (AudioManager) getSystemService(Context.AUDIO_SERVICE));
         // Chronometer m = (Chronometer) findViewById(R.id.chronometer); TODO maybe switch to chrono
         // m.start();
 
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
             TextView countDown = (TextView) findViewById(R.id.count_down);
             CheckBox sayCurrentTimeCheckBox = (CheckBox) findViewById(R.id.check_box_current_time);
             CheckBox sayTotalTimeCheckBox = (CheckBox) findViewById(R.id.check_box_total_duration);
-            AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
             TimePeriod duration = new TimePeriod();
 
 
@@ -92,31 +91,13 @@ public class MainActivity extends AppCompatActivity {
                 this.countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
                 if (untilNextAlarm.getSeconds() == 1) {
                     // TODO NEXT mute other audio as notification plays
-                    int result = am.requestAudioFocus(afChangeListener,
-                            AudioManager.STREAM_NOTIFICATION,
-                            AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
-
-                    if (result == am.AUDIOFOCUS_REQUEST_GRANTED) {
-                        voiceNotification();
-                        am.abandonAudioFocus(afChangeListener);// TODO get it to pause for the right amount of time
-                    }
+                    voiceNotification();
                 }
             }
 
-            AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
-                @Override
-                public void onAudioFocusChange(int focusChange) {
-                    if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
-
-                    } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-                        am.abandonAudioFocus(afChangeListener);
-                    }
-                }
-            };
-
 
             private TimePeriod getTimeUntilNextAlarm() {
-                int alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60;
+                int alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60; // change this for faster testing.
                 int timeSinceLastAlarm = this.duration.getSeconds() % alarmFrequencyInSeconds;
                 return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
             }
@@ -126,16 +107,16 @@ public class MainActivity extends AppCompatActivity {
                 boolean isCurrentTimeBoxChecked = sayCurrentTimeCheckBox.isChecked();
                 boolean isTotalTimeBoxChecked = sayTotalTimeCheckBox.isChecked();
 
-                if (isCurrentTimeBoxChecked) {
-                    voice.say("It is currently " + dateFormat.format(new Date()));
-                }
-                if (isCurrentTimeBoxChecked && isTotalTimeBoxChecked) {
-                    voice.sayNothing(500);
-                }
+                String message = "";
 
-                if (isTotalTimeBoxChecked) {
-                    voice.say("This timer has been running for " + TimePeriodFormat.simple(this.duration));
+                if (isCurrentTimeBoxChecked) {
+                    message += " It is currently " + dateFormat.format(new Date()) + ".";
                 }
+                message += ".....";
+                if (isTotalTimeBoxChecked) {
+                    message += " This timer has been running for " + TimePeriodFormat.simple(this.duration);
+                }
+                voice.say(message);
             }
         };
         clock.scheduleAtFixedRate(task, 0, 1000);
