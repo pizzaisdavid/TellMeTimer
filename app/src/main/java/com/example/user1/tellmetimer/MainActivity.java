@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                 if (isCurrentTimeBoxChecked) {
                     message += " It is currently " + dateFormat.format(new Date()) + ".";
                 }
-                message += ".....";
+                message += "........"; // take a breath between sentences.
                 if (isTotalTimeBoxChecked) {
                     message += " This timer has been running for " + TimePeriodFormat.simple(this.duration);
                 }

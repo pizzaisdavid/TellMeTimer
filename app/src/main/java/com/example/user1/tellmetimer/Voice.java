@@ -40,6 +40,8 @@ public class Voice implements TextToSpeech.OnInitListener {
     UtteranceProgressListener requestAudioFocus = new UtteranceProgressListener() {
         // TODO put this in its own class
         // - TODO create isAllowedToTalk, which is checked before running "say()."
+        // - copy this class style:
+        // -- http://stackoverflow.com/questions/20296792/tts-utteranceprogresslistener-not-being-called
 
         @Override
         public void onStart(String utteranceId) {
@@ -65,10 +67,6 @@ public class Voice implements TextToSpeech.OnInitListener {
                 TextToSpeech.QUEUE_ADD,
                 this.map
         );
-    }
-
-    public void takeBreath() {
-        say(".....");
     }
 
     AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
