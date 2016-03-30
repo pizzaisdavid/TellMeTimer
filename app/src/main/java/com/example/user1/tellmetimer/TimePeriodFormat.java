@@ -5,17 +5,17 @@ public final class TimePeriodFormat {
     public static String simple(TimePeriod duration) {
         int minutes = duration.getSeconds() / 60;
         int seconds = duration.getSeconds() % 60;
-        return minutesToString(minutes) + " " + secondsToString(seconds);
+        return simpleMinutesToString(minutes) + " " + simpleSecondsToString(seconds);
     }
 
-    private static String minutesToString(int minutes) {
+    private static String simpleMinutesToString(int minutes) {
         if (isThereAny(minutes)) {
             return getProperSubjectVerbAgreement(minutes, "minute", "minutes");
         }
         return "";
     }
 
-    private static String secondsToString(int seconds) {
+    private static String simpleSecondsToString(int seconds) {
         if (isThereAny(seconds)) {
             return getProperSubjectVerbAgreement(seconds, "second", "seconds");
         }
@@ -38,17 +38,18 @@ public final class TimePeriodFormat {
         int minutes = duration.getSeconds() / 60;
         int seconds = duration.getSeconds() % 60;
         String message = "";
-        if (minutes == 0) {
-            message += "00";
-        } else {
-            message += minutes;
+        return addLeadingZeroIfNeeded(minutes) + ":" + addLeadingZeroIfNeeded(seconds);
+    }
+
+    private static String addLeadingZeroIfNeeded(int integer) {
+        String text = Integer.toString(integer);
+        if (isSingleDigit(integer)) {
+            return "0" + text;
         }
-        message += ":";
-        if (seconds < 10) {
-            message += "0" + seconds;
-        } else {
-            message += seconds;
-        }
-        return message;
+        return text;
+    }
+
+    private static boolean isSingleDigit(int number) {
+        return number < 10;
     }
 }
