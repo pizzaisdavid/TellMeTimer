@@ -1,9 +1,16 @@
 package com.example.user1.tellmetimer;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
@@ -30,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         voice = new Voice(this, (AudioManager) getSystemService(Context.AUDIO_SERVICE));
         // Chronometer m = (Chronometer) findViewById(R.id.chronometer); TODO maybe switch to chrono
         // m.start();
+
+        sendNotification();
 
         alarmFrequencyInMinutes = 2;
         Button startButton = (Button) findViewById(R.id.start_button);
@@ -63,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         final Timer clock = new Timer();
         TimerTask task = new TimerTask() {
             TextView totalTime = (TextView) findViewById(R.id.total_time);
@@ -90,11 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 this.totalTime.setText(TimePeriodFormat.simple(this.duration));
                 this.countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
                 if (untilNextAlarm.getSeconds() == 1) {
-                    // TODO NEXT mute other audio as notification plays
                     voiceNotification();
                 }
             }
-
 
             private TimePeriod getTimeUntilNextAlarm() {
                 int alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60; // change this for faster testing.
@@ -112,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 if (isCurrentTimeBoxChecked) {
                     message += " It is currently " + dateFormat.format(new Date()) + ".";
                 }
-                message += "........"; // take a breath between sentences.
+                message += "........"; // Hack-y attempt to take a breath between sentences.
                 if (isTotalTimeBoxChecked) {
                     message += " This timer has been running for " + TimePeriodFormat.simple(this.duration);
                 }
@@ -121,6 +127,24 @@ public class MainActivity extends AppCompatActivity {
         };
         clock.scheduleAtFixedRate(task, 0, 1000);
     }
+
+    public void sendNotification() {
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://developer.android.com/reference/android/app/Notification.html"));
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentIntent(pendingIntent);
+        builder.setAutoCancel(true);
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+        builder.setContentTitle("BasicNotifications Sample");
+        builder.setContentText("Time to learn about notifications!");
+        builder.setSubText("Tap to view documentation about notifications.");
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                NOTIFICATION_SERVICE);
+        notificationManager.notify(1, builder.build());
+    }
     // TODO add start button
     // TODO pick a start time or start now.
+    // TODO on app minimize, show some kind of notification that it is still running in the background.
 }
