@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
@@ -37,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
         voice = new Voice(this, (AudioManager) getSystemService(Context.AUDIO_SERVICE));
         // Chronometer m = (Chronometer) findViewById(R.id.chronometer); TODO maybe switch to chrono
         // m.start();
-
-        sendNotification();
 
         alarmFrequencyInMinutes = 2;
         Button startButton = (Button) findViewById(R.id.start_button);
@@ -128,18 +125,34 @@ public class MainActivity extends AppCompatActivity {
         clock.scheduleAtFixedRate(task, 0, 1000);
     }
 
-    public void sendNotification() {
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        final int ID = 1;
+        NotificationManager notificationManager = (NotificationManager) getSystemService(
+                NOTIFICATION_SERVICE);
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus == false) {
+            sendNotification();
+        } else {
+            notificationManager.cancel(ID);
+        }
+    }
+
+    public void sendNotification() { // example had View argument.
+        // TODO NEXT put this in its own class.
         Intent intent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("http://developer.android.com/reference/android/app/Notification.html"));
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentIntent(pendingIntent);
-        builder.setAutoCancel(true);
+        builder.setAutoCancel(false);
+        builder.setCategory("service");
         builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         builder.setContentTitle("BasicNotifications Sample");
         builder.setContentText("Time to learn about notifications!");
         builder.setSubText("Tap to view documentation about notifications.");
+        builder.setPriority(0);
         NotificationManager notificationManager = (NotificationManager) getSystemService(
                 NOTIFICATION_SERVICE);
         notificationManager.notify(1, builder.build());
