@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        // TODO add loading screen to stop that jump in seconds. https://www.bignerdranch.com/blog/splash-screens-the-right-way/
+
         // TODO add countdown alarm option
         // -- Five minutes remaining, three minutes remaining...
         super.onCreate(savedInstanceState);
@@ -127,35 +129,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        final int ID = 1;
-        NotificationManager notificationManager = (NotificationManager) getSystemService(
-                NOTIFICATION_SERVICE);
+        final int NOTIFICATION_ID = 1;
+        StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(NOTIFICATION_ID, this, (NotificationManager) getSystemService(NOTIFICATION_SERVICE));
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus == false) {
-            sendNotification();
+            // TODO if app is open, and we open the notification drawer, it shouldn't push a notification.
+            backgroundNotification.show();
         } else {
-            notificationManager.cancel(ID);
+            notificationManager.cancel(NOTIFICATION_ID);
+            backgroundNotification.hide();
         }
-    }
-
-    public void sendNotification() { // example had View argument.
-        // TODO NEXT put this in its own class.
-        Intent intent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://developer.android.com/reference/android/app/Notification.html"));
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentIntent(pendingIntent);
-        builder.setAutoCancel(false);
-        builder.setCategory("service");
-        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        builder.setContentTitle("BasicNotifications Sample");
-        builder.setContentText("Time to learn about notifications!");
-        builder.setSubText("Tap to view documentation about notifications.");
-        builder.setPriority(0);
-        NotificationManager notificationManager = (NotificationManager) getSystemService(
-                NOTIFICATION_SERVICE);
-        notificationManager.notify(1, builder.build());
     }
     // TODO add start button
     // TODO pick a start time or start now.
