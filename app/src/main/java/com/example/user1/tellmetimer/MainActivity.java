@@ -1,7 +1,15 @@
 package com.example.user1.tellmetimer;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
@@ -21,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        // TODO add loading screen to stop that jump in seconds. https://www.bignerdranch.com/blog/splash-screens-the-right-way/
+
         // TODO add countdown alarm option
         // -- Five minutes remaining, three minutes remaining...
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        voice = new Voice(this);
+        voice = new Voice(this, (AudioManager) getSystemService(Context.AUDIO_SERVICE));
         // Chronometer m = (Chronometer) findViewById(R.id.chronometer); TODO maybe switch to chrono
         // m.start();
 
@@ -61,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         final Timer clock = new Timer();
         TimerTask task = new TimerTask() {
             TextView totalTime = (TextView) findViewById(R.id.total_time);
@@ -93,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             private TimePeriod getTimeUntilNextAlarm() {
-                int alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60;
+                int alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60; // change this for faster testing.
                 int timeSinceLastAlarm = this.duration.getSeconds() % alarmFrequencyInSeconds;
                 return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
             }
@@ -102,20 +111,37 @@ public class MainActivity extends AppCompatActivity {
                 DateFormat dateFormat = new SimpleDateFormat("h:mm a");
                 boolean isCurrentTimeBoxChecked = sayCurrentTimeCheckBox.isChecked();
                 boolean isTotalTimeBoxChecked = sayTotalTimeCheckBox.isChecked();
-                // TODO NEXT mute other audio as notification plays
+
+                String message = "";
+
                 if (isCurrentTimeBoxChecked) {
-                    voice.say("It is currently " + dateFormat.format(new Date()));
+                    message += " It is currently " + dateFormat.format(new Date()) + ".";
                 }
-                if (isCurrentTimeBoxChecked && isTotalTimeBoxChecked) {
-                    voice.sayNothing(500);
-                }
+                message += "........"; // Hack-y attempt to take a breath between sentences.
                 if (isTotalTimeBoxChecked) {
-                    voice.say("This timer has been running for " + TimePeriodFormat.simple(this.duration));
+                    message += " This timer has been running for " + TimePeriodFormat.simple(this.duration);
                 }
+                voice.say(message);
             }
         };
         clock.scheduleAtFixedRate(task, 0, 1000);
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        final int NOTIFICATION_ID = 1;
+        StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(NOTIFICATION_ID, this, (NotificationManager) getSystemService(NOTIFICATION_SERVICE));
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus == false) {
+            // TODO if app is open, and we open the notification drawer, it shouldn't push a notification.
+            backgroundNotification.show();
+        } else {
+            notificationManager.cancel(NOTIFICATION_ID);
+            backgroundNotification.hide();
+        }
+    }
     // TODO add start button
     // TODO pick a start time or start now.
+    // TODO on app minimize, show some kind of notification that it is still running in the background.
 }
