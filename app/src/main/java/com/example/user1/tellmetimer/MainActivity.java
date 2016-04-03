@@ -23,7 +23,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Voice voice;
+    private VoiceNotification voice;
     private int alarmFrequencyInMinutes;
 
     @Override
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         // -- Five minutes remaining, three minutes remaining...
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        voice = new Voice(this, (AudioManager) getSystemService(Context.AUDIO_SERVICE));
+        voice = new VoiceNotification(this, (AudioManager) getSystemService(Context.AUDIO_SERVICE));
         // Chronometer m = (Chronometer) findViewById(R.id.chronometer); TODO maybe switch to chrono
         // m.start();
 
@@ -105,20 +105,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void voiceNotification() {
-                DateFormat dateFormat = new SimpleDateFormat("h:mm a");
-                boolean isCurrentTimeBoxChecked = sayCurrentTimeCheckBox.isChecked();
-                boolean isTotalTimeBoxChecked = sayTotalTimeCheckBox.isChecked();
-
-                String message = "";
-
-                if (isCurrentTimeBoxChecked) {
-                    message += " It is currently " + dateFormat.format(new Date()) + ".";
+                if (sayCurrentTimeCheckBox.isChecked()) {
+                    voice.appendCurrentTimeToQueue();
                 }
-                message += "........"; // Hack-y attempt to take a breath between sentences.
-                if (isTotalTimeBoxChecked) {
-                    message += " This timer has been running for " + TimePeriodFormat.simple(this.duration);
+                voice.appendPauseToQueue();
+                if (sayTotalTimeCheckBox.isChecked()) {
+                    voice.appendTotalTimeToQueue(this.duration);
                 }
-                voice.say(message);
+                voice.sayQueue();
             }
         };
         clock.scheduleAtFixedRate(task, 0, 1000);
@@ -127,17 +121,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         final int NOTIFICATION_ID = 1;
-        StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(NOTIFICATION_ID, this, (NotificationManager) getSystemService(NOTIFICATION_SERVICE));
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(
+                NOTIFICATION_ID,
+                this,
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE)
+        );
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus == false) {
             // TODO if app is open, and we open the notification drawer, it shouldn't push a notification.
             backgroundNotification.show();
         } else {
-            notificationManager.cancel(NOTIFICATION_ID);
             backgroundNotification.hide();
         }
     }
-    // TODO add start button
+    // TODO -->NEXT<-- add start button
     // TODO pick a start time or start now.
 }

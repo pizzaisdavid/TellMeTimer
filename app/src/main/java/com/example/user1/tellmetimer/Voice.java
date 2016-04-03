@@ -15,9 +15,9 @@ public class Voice implements TextToSpeech.OnInitListener {
     private AudioManager am;
     private HashMap<String, String> map;
 
-    public Voice(Context context, AudioManager am) {
+    public Voice(Context context, AudioManager audioManager) {
         this.textToSpeech = new TextToSpeech(context, this);
-        this.am = am;
+        this.am = audioManager;
         this.textToSpeech.setOnUtteranceProgressListener(requestAudioFocus);
         this.map = new HashMap<String, String>();
         this.map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID");
