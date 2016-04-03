@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        // TODO add loading screen to stop that jump in seconds. https://www.bignerdranch.com/blog/splash-screens-the-right-way/
-
         // TODO add countdown alarm option
         // -- Five minutes remaining, three minutes remaining...
         super.onCreate(savedInstanceState);
@@ -143,5 +140,4 @@ public class MainActivity extends AppCompatActivity {
     }
     // TODO add start button
     // TODO pick a start time or start now.
-    // TODO on app minimize, show some kind of notification that it is still running in the background.
 }
