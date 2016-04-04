@@ -93,14 +93,14 @@ public class MainActivity extends AppCompatActivity {
                 this.duration.tick();
                 this.totalTime.setText(TimePeriodFormat.simple(this.duration));
                 this.countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
-                if (untilNextAlarm.getSeconds() == 1) {
+                if (untilNextAlarm.getAsSeconds() == 1) {
                     voiceNotification();
                 }
             }
 
             private TimePeriod getTimeUntilNextAlarm() {
                 int alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60; // change this for faster testing.
-                int timeSinceLastAlarm = this.duration.getSeconds() % alarmFrequencyInSeconds;
+                int timeSinceLastAlarm = this.duration.getAsSeconds() % alarmFrequencyInSeconds;
                 return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
             }
 

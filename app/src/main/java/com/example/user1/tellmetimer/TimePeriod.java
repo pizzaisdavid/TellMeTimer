@@ -22,7 +22,17 @@ public class TimePeriod {
         this.seconds++;
     }
 
-    public int getSeconds() {
+    public int getAsSeconds() {
         return this.seconds;
+    }
+
+    public int getSeconds() {
+        final int SECONDS_PER_MINUTE = 60;
+        return this.seconds % 60;
+    }
+
+    public int getMinutes() {
+        final int SECONDS_PER_MINUTE = 60;
+        return this.seconds / 60;
     }
 }
