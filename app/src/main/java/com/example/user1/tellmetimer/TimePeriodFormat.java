@@ -3,8 +3,8 @@ package com.example.user1.tellmetimer;
 public final class TimePeriodFormat {
 
     public static String simple(TimePeriod duration) {
-        int minutes = duration.getSeconds() / 60;
-        int seconds = duration.getSeconds() % 60;
+        int minutes = duration.getMinutes();
+        int seconds = duration.getSeconds();
         return simpleMinutesToString(minutes) + " " + simpleSecondsToString(seconds);
     }
 
@@ -34,10 +34,9 @@ public final class TimePeriodFormat {
     }
 
     public static String clock(TimePeriod duration) {
-        // TODO make smaller breakup
-        int minutes = duration.getSeconds() / 60;
-        int seconds = duration.getSeconds() % 60;
-        String message = "";
+        // TODO make functions for these.
+        int minutes = duration.getMinutes();
+        int seconds = duration.getSeconds();
         return addLeadingZeroIfNeeded(minutes) + ":" + addLeadingZeroIfNeeded(seconds);
     }
 

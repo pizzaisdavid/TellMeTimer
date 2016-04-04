@@ -28,12 +28,7 @@ public class StillRunningBackgroundNotification {
     }
 
     private NotificationCompat.Builder getBuilder(Context context) {
-        // TODO Sometimes it picks up where it left off, sometimes it doesn't.
-        // it is something about back button vs home button.
-        // home button and click: picks up where it left off.
-        // back and click: makes new.
-        // do that thing with the fake stack.
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, SplashActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
         builder.setSmallIcon(R.mipmap.ic_launcher);
