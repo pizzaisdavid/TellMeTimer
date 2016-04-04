@@ -9,27 +9,28 @@ import java.util.Date;
 
 public class VoiceNotification extends Voice {
 
-    private String message;
+    private String queue;
 
     public VoiceNotification(Context context, AudioManager audioManager) {
         super(context, audioManager);
-        this.message = "";
+        this.queue = "";
     }
 
     public void appendCurrentTimeToQueue() {
         DateFormat dateFormat = new SimpleDateFormat("h:mm a");
-        this.message += " It is currently " + dateFormat.format(new Date()) + ".";
+        this.queue += " It is currently " + dateFormat.format(new Date()) + ".";
     }
 
     public void appendPauseToQueue() {
-        this.message += "........"; // Hack-y attempt to take a breath between sentences.
+        this.queue += "........"; // Hack-y attempt to take a breath between sentences.
     }
 
     public void appendTotalTimeToQueue(TimePeriod duration) {
-        this.message += " This timer has been running for " + TimePeriodFormat.simple(duration) + ".";
+        this.queue += " This timer has been running for " + TimePeriodFormat.simple(duration) + ".";
     }
 
     public void sayQueue() {
-        say(this.message);
+        say(this.queue);
+        this.queue = "";
     }
 }
