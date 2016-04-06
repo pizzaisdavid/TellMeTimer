@@ -15,7 +15,7 @@ public class UpdateTask extends TimerTask {
     private TextView totalTime;
     private TextView countDown;
     private CheckBox sayCurrentTimeCheckBox;
-    private CheckBox sayTotalTimeCheckBox; // TODO make a grab class
+    private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
 
     private TimePeriod duration;
     private int alarmFrequencyInMinutes;
@@ -62,7 +62,7 @@ public class UpdateTask extends TimerTask {
         return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
     }
 
-    public void voiceNotification() {
+    private void voiceNotification() {
         if (sayCurrentTimeCheckBox.isChecked()) {
             this.voice.appendCurrentTimeToQueue();
         }
