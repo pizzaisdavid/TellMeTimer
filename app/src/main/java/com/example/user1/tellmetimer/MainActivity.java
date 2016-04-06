@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         startButton.setOnClickListener(new View.OnClickListener() {
             StopWatch stopWatch = new StopWatch(MainActivity.this);
+
             public void onClick(View view) {
                 // TODO change text and pause
                 if (isGoing) {
