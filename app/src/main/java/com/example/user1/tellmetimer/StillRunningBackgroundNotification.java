@@ -4,15 +4,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.NotificationCompat;
 
-/**
- * Created by User1 on 3/29/16.
- */
 public class StillRunningBackgroundNotification {
 
-    // TODO
+    // TODO delete notification on program end.
     // app is running in the background,
     // close it via task manager,
     // cancel notification.
