@@ -19,7 +19,7 @@ public class Voice implements TextToSpeech.OnInitListener {
         this.textToSpeech = new TextToSpeech(context, this);
         this.am = audioManager;
         this.textToSpeech.setOnUtteranceProgressListener(requestAudioFocus);
-        this.map = new HashMap<String, String>();
+        this.map = new HashMap<>();
         this.map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID");
     }
 
@@ -32,10 +32,10 @@ public class Voice implements TextToSpeech.OnInitListener {
                 Log.e("error", "This Language is not supported");
             }
         } else {
-            Log.e("error", "Initilization Failed!");
+            Log.e("error", "Initialization Failed!");
         }
     }
-
+    
 
     UtteranceProgressListener requestAudioFocus = new UtteranceProgressListener() {
         // TODO put this in its own class
@@ -45,9 +45,11 @@ public class Voice implements TextToSpeech.OnInitListener {
 
         @Override
         public void onStart(String utteranceId) {
-            int result = am.requestAudioFocus(afChangeListener,
+            am.requestAudioFocus(
+                    afChangeListener,
                     AudioManager.STREAM_NOTIFICATION,
-                    AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+                    AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
+            );
         }
 
         @Override
