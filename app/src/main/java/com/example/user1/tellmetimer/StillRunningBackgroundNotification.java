@@ -15,7 +15,7 @@ public class StillRunningBackgroundNotification {
     // TODO
     // app is running in the background,
     // close it via task manager,
-    // cancel notificaion.
+    // cancel notification.
 
     private int id;
     private NotificationManager notificationManager;
