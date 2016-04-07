@@ -15,7 +15,7 @@ public class RequestAudioFocus extends UtteranceProgressListener {
 
     @Override
     public void onStart(String utteranceId) {
-        audioManager.requestAudioFocus(
+        this.audioManager.requestAudioFocus(
                 audioFocusChangeListener,
                 AudioManager.STREAM_NOTIFICATION,
                 AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
@@ -24,7 +24,7 @@ public class RequestAudioFocus extends UtteranceProgressListener {
 
     @Override
     public void onDone(String utteranceId) {
-        audioManager.abandonAudioFocus(audioFocusChangeListener);
+        this.audioManager.abandonAudioFocus(audioFocusChangeListener);
     }
 
     @Override
@@ -33,12 +33,15 @@ public class RequestAudioFocus extends UtteranceProgressListener {
     }
 
     AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+
         @Override
         public void onAudioFocusChange(int focusChange) {
-            if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
-
-            } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-                audioManager.abandonAudioFocus(audioFocusChangeListener);
+            switch (focusChange) {
+                case AudioManager.AUDIOFOCUS_GAIN:
+                    break;
+                case AudioManager.AUDIOFOCUS_LOSS:
+                    audioManager.abandonAudioFocus(audioFocusChangeListener);
+                    break;
             }
         }
     };
