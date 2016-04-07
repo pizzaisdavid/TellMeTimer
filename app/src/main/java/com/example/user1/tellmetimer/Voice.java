@@ -1,5 +1,6 @@
 package com.example.user1.tellmetimer;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
 import android.speech.tts.TextToSpeech;
@@ -12,15 +13,18 @@ import java.util.Locale;
 public class Voice implements TextToSpeech.OnInitListener {
 
     private TextToSpeech textToSpeech;
-    private AudioManager am;
     private HashMap<String, String> map;
 
-    public Voice(Context context, AudioManager audioManager) {
-        this.textToSpeech = new TextToSpeech(context, this);
-        this.am = audioManager;
-        this.textToSpeech.setOnUtteranceProgressListener(requestAudioFocus);
-        this.map = new HashMap<>();
-        this.map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID");
+    public Voice(Activity activity) {
+        this.textToSpeech = new TextToSpeech(activity, this);
+        this.textToSpeech.setOnUtteranceProgressListener(new RequestAudioFocus(activity));
+        this.map = getHashMap();
+    }
+
+    private HashMap getHashMap() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "UniqueID");
+        return map;
     }
 
     @Override
@@ -36,32 +40,6 @@ public class Voice implements TextToSpeech.OnInitListener {
         }
     }
 
-    UtteranceProgressListener requestAudioFocus = new UtteranceProgressListener() {
-        // TODO put this in its own class
-        // - TODO create isAllowedToTalk, which is checked before running "say()."
-        // - copy this class style:
-        // -- http://stackoverflow.com/questions/20296792/tts-utteranceprogresslistener-not-being-called
-
-        @Override
-        public void onStart(String utteranceId) {
-            am.requestAudioFocus(
-                    afChangeListener,
-                    AudioManager.STREAM_NOTIFICATION,
-                    AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
-            );
-        }
-
-        @Override
-        public void onDone(String utteranceId) {
-            am.abandonAudioFocus(afChangeListener);
-        }
-
-        @Override
-        public void onError(String utteranceId) {
-
-        }
-    };
-
     public void say(String message) {
         textToSpeech.speak(
                 message,
@@ -69,15 +47,4 @@ public class Voice implements TextToSpeech.OnInitListener {
                 this.map
         );
     }
-
-    AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
-        @Override
-        public void onAudioFocusChange(int focusChange) {
-            if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
-
-            } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
-                am.abandonAudioFocus(afChangeListener);
-            }
-        }
-    };
 }
