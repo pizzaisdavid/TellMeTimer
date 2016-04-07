@@ -22,7 +22,7 @@ public class VoiceNotification extends Voice {
     }
 
     public void appendPauseToQueue() {
-        this.queue += "........"; // Hack-y attempt to take a breath between sentences.
+        this.queue += "........"; // TODO attempt to take a breath between sentences.
     }
 
     public void appendTotalTimeToQueue(TimePeriod duration) {

@@ -10,21 +10,16 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private VoiceNotification voice;
     private int alarmFrequencyInMinutes;
     private Button startButton;
     private boolean isGoing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO add countdown alarm option
-        // -- Five minutes remaining, three minutes remaining...
+        // TODO add countdown alarm option Five minutes remaining, three minutes remaining...
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startButton = (Button) findViewById(R.id.start_button);
-
-        // Chronometer m = (Chronometer) findViewById(R.id.chronometer); TODO maybe switch to chrono
-        // m.start();
 
         alarmFrequencyInMinutes = 2;
         SeekBar alarmFrequency = (SeekBar) findViewById(R.id.alarm_frequency);
@@ -86,6 +81,5 @@ public class MainActivity extends AppCompatActivity {
             backgroundNotification.hide();
         }
     }
-    // TODO -->NEXT<-- add start button
     // TODO pick a start time or start now.
 }

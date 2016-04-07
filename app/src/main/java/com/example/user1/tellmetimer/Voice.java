@@ -35,7 +35,6 @@ public class Voice implements TextToSpeech.OnInitListener {
             Log.e("error", "Initialization Failed!");
         }
     }
-    
 
     UtteranceProgressListener requestAudioFocus = new UtteranceProgressListener() {
         // TODO put this in its own class

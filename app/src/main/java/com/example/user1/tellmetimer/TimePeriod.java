@@ -1,14 +1,9 @@
 package com.example.user1.tellmetimer;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.Duration;
-
 public class TimePeriod {
 
     private int seconds;
+    final int SECONDS_PER_MINUTE = 60;
 
     public TimePeriod() {
         this.seconds = 0;
@@ -27,12 +22,10 @@ public class TimePeriod {
     }
 
     public int getSeconds() {
-        final int SECONDS_PER_MINUTE = 60;
-        return this.seconds % 60;
+        return this.seconds % this.SECONDS_PER_MINUTE;
     }
 
     public int getMinutes() {
-        final int SECONDS_PER_MINUTE = 60;
-        return this.seconds / 60;
+        return this.seconds / this.SECONDS_PER_MINUTE;
     }
 }
