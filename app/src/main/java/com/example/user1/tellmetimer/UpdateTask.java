@@ -1,8 +1,6 @@
 package com.example.user1.tellmetimer;
 
 import android.app.Activity;
-import android.content.Context;
-import android.media.AudioManager;
 import android.widget.CheckBox;
 import android.widget.TextView;
 

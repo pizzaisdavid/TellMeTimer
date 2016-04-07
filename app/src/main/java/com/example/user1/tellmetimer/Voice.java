@@ -1,10 +1,7 @@
 package com.example.user1.tellmetimer;
 
 import android.app.Activity;
-import android.content.Context;
-import android.media.AudioManager;
 import android.speech.tts.TextToSpeech;
-import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
 
 import java.util.HashMap;
