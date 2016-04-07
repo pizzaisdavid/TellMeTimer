@@ -28,8 +28,8 @@ public class UpdateTask extends TimerTask {
         this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
         this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
         this.duration = new TimePeriod();
-        this.alarmFrequencyInMinutes = 1; // TODO variable
-        this.voice = new VoiceNotification(activity, (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE));
+        this.alarmFrequencyInMinutes = 1; // TODO variable re-get
+        this.voice = new VoiceNotification(activity);
         this.activity = activity;
         this.isPaused = false;
     }

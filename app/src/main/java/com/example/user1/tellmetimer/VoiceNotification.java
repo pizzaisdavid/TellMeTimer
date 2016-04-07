@@ -1,8 +1,6 @@
 package com.example.user1.tellmetimer;
 
-import android.content.Context;
-import android.media.AudioManager;
-
+import android.app.Activity;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,8 +9,8 @@ public class VoiceNotification extends Voice {
 
     private String queue;
 
-    public VoiceNotification(Context context, AudioManager audioManager) {
-        super(context, audioManager);
+    public VoiceNotification(Activity activity) {
+        super(activity);
         this.queue = "";
     }
 
