@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
     alarmFrequencyInMinutes = 2;
     SeekBar alarmFrequency = (SeekBar) findViewById(R.id.alarm_frequency);
 
+
     alarmFrequency.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
       @Override
       public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         TextView alarmFrequencyText = (TextView) findViewById(R.id.alarm_frequency_text);
@@ -33,14 +35,10 @@ public class MainActivity extends AppCompatActivity {
       }
 
       @Override
-      public void onStartTrackingTouch(SeekBar seekBar) {
-
-      }
+      public void onStartTrackingTouch(SeekBar seekBar) {}
 
       @Override
-      public void onStopTrackingTouch(SeekBar seekBar) {
-
-      }
+      public void onStopTrackingTouch(SeekBar seekBar) {}
     });
 
     startButton.setOnClickListener(new View.OnClickListener() {
@@ -67,12 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
-    final int NOTIFICATION_ID = 1;
-    StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(
-            NOTIFICATION_ID,
-            this,
-            (NotificationManager) getSystemService(NOTIFICATION_SERVICE)
-    );
+    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+    StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
     super.onWindowFocusChanged(hasFocus);
     if (hasFocus == false) {
       // TODO if app is open, and we open the notification drawer, it shouldn't push a notification.

@@ -40,7 +40,6 @@ public class UpdateTask extends TimerTask {
         update();
       }
     });
-
   }
 
   public void update() {

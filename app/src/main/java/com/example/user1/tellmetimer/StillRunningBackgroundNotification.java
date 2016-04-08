@@ -17,8 +17,9 @@ public class StillRunningBackgroundNotification {
   private NotificationManager notificationManager;
   private NotificationCompat.Builder builder;
 
-  public StillRunningBackgroundNotification(int id, Context context, NotificationManager nm) {
-    this.id = id;
+  public StillRunningBackgroundNotification(Context context, NotificationManager nm) {
+    final int UNIQUE_IDENTIFIER = 1;
+    this.id = UNIQUE_IDENTIFIER;
     this.notificationManager = nm;
     this.builder = getBuilder(context);
   }
