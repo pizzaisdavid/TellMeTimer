@@ -28,14 +28,15 @@ public class StillRunningBackgroundNotification {
     Intent intent = new Intent(context, SplashActivity.class);
     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-    builder.setSmallIcon(R.mipmap.ic_launcher);
-    builder.setContentIntent(pendingIntent);
-    builder.setAutoCancel(false);
-    builder.setCategory("service");
-    builder.setContentTitle("Time is still ticking!");
-    builder.setContentText("Time to learn about notifications!");
-    builder.setSubText("Tap to view documentation about notifications.");
-    builder.setPriority(0);
+
+    builder.setSmallIcon(R.mipmap.ic_launcher)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(false)
+            .setCategory("service")
+            .setContentTitle("Time is still ticking!")
+            .setContentText("Time to learn about notifications!")
+            .setSubText("Tap to view documentation about notifications.")
+            .setPriority(0);
     return builder;
   }
 
