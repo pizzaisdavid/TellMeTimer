@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
   private int alarmFrequencyInMinutes;
   private Button startButton;
-  private boolean isGoing = false;
+  private boolean isGoing = false; // TODO should this be initialized somewhere else?
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
