@@ -45,13 +45,7 @@ public class MainActivity extends AppCompatActivity {
       StopWatch stopWatch = new StopWatch(MainActivity.this);
 
       public void onClick(View view) {
-        // TODO change text and pause
-        if (isGoing) {
-          isGoing = false;
-        } else {
-          isGoing = true;
-        }
-
+        isGoing = swapState(isGoing);
         if (isGoing) {
           stopWatch.resume();
           startButton.setText("Pause");
@@ -59,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
           stopWatch.pause();
           startButton.setText("Start");
         }
+      }
+
+      private boolean swapState(boolean state) {
+        if (state) {
+          return false;
+        }
+        return true;
       }
     });
   }
