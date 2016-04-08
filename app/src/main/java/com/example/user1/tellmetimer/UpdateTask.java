@@ -2,6 +2,7 @@ package com.example.user1.tellmetimer;
 
 import android.app.Activity;
 import android.widget.CheckBox;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.TimerTask;
@@ -9,27 +10,47 @@ import java.util.TimerTask;
 public class UpdateTask extends TimerTask {
 
   private boolean isPaused;
-  private Activity activity;
+  final private Activity activity;
   private TextView totalTime;
   private TextView countDown;
   private CheckBox sayCurrentTimeCheckBox;
   private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
+  private SeekBar alarmFrequency;
 
-  private TimePeriod duration;
   private int alarmFrequencyInMinutes;
+  private TimePeriod duration;
   private VoiceNotification voice;
 
 
-  public UpdateTask(Activity activity) {
+  public UpdateTask(final Activity activity) {
     this.totalTime = (TextView) activity.findViewById(R.id.total_time);
     this.countDown = (TextView) activity.findViewById(R.id.count_down);
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
     this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
+    this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
+
     this.duration = new TimePeriod();
-    this.alarmFrequencyInMinutes = 1; // TODO variable re-get
+    this.alarmFrequencyInMinutes = 2; // TODO variable re-get
     this.voice = new VoiceNotification(activity);
     this.activity = activity;
     this.isPaused = false;
+
+    alarmFrequency.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+      //TODO figure out where to actually put this.
+      @Override
+      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        TextView alarmFrequencyText = (TextView) activity.findViewById(R.id.alarm_frequency_text);
+        alarmFrequencyInMinutes = progress + 1;
+        alarmFrequencyText.setText(AlarmFrequencyFormat.format(alarmFrequencyInMinutes));
+      }
+
+      @Override
+      public void onStartTrackingTouch(SeekBar seekBar) {}
+
+      @Override
+      public void onStopTrackingTouch(SeekBar seekBar) {}
+    });
   }
 
   @Override
