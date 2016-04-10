@@ -16,8 +16,9 @@ public class UpdateTask extends TimerTask {
   private CheckBox sayCurrentTimeCheckBox;
   private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
   private SeekBar alarmFrequency;
+  private AlarmFrequencyListener alarmFrequencyListener;
 
-  private int alarmFrequencyInMinutes;
+
   private TimePeriod duration;
   private VoiceNotification voice;
 
@@ -30,27 +31,11 @@ public class UpdateTask extends TimerTask {
     this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
 
     this.duration = new TimePeriod();
-    this.alarmFrequencyInMinutes = 2; // TODO variable re-get
     this.voice = new VoiceNotification(activity);
     this.activity = activity;
     this.isPaused = false;
-
-    alarmFrequency.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-      //TODO figure out where to actually put this.
-      @Override
-      public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        TextView alarmFrequencyText = (TextView) activity.findViewById(R.id.alarm_frequency_text);
-        alarmFrequencyInMinutes = progress + 1;
-        alarmFrequencyText.setText(AlarmFrequencyFormat.format(alarmFrequencyInMinutes));
-      }
-
-      @Override
-      public void onStartTrackingTouch(SeekBar seekBar) {}
-
-      @Override
-      public void onStopTrackingTouch(SeekBar seekBar) {}
-    });
+    this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
+    alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
   }
 
   @Override
@@ -76,7 +61,7 @@ public class UpdateTask extends TimerTask {
   }
 
   private TimePeriod getTimeUntilNextAlarm() {
-    int alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60; // change this for faster testing.
+    int alarmFrequencyInSeconds = this.alarmFrequencyListener.getAsSeconds();
     int timeSinceLastAlarm = duration.getAsSeconds() % alarmFrequencyInSeconds;
     return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
   }
