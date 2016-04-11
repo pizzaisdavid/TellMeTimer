@@ -26,6 +26,7 @@
                 android:layout_gravity="left"
                 android:textSize="30dp"
                 android:id="@+id/toolbar_title"
+                android:textColor="@color/white"
                 />
 
         </android.support.v7.widget.Toolbar>
