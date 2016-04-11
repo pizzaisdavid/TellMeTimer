@@ -1,83 +1,88 @@
 package com.example.user1.tellmetimer;
 
 import android.app.Activity;
-import android.content.Context;
-import android.media.AudioManager;
 import android.widget.CheckBox;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.TimerTask;
 
 public class UpdateTask extends TimerTask {
 
-    private boolean isPaused;
-    private Activity activity;
-    private TextView totalTime;
-    private TextView countDown;
-    private CheckBox sayCurrentTimeCheckBox;
-    private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
+  private boolean isPaused;
+  private Activity activity;
+  private TextView totalTime;
+  private TextView countDown;
+  private CheckBox sayCurrentTimeCheckBox;
+  private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
+  private SeekBar alarmFrequency;
+  private AlarmFrequencyListener alarmFrequencyListener;
 
-    private TimePeriod duration;
-    private int alarmFrequencyInMinutes;
-    private VoiceNotification voice;
+  public TimePeriod duration;
+  private VoiceNotification voice;
 
 
-    public UpdateTask(Activity activity) {
-        this.totalTime = (TextView) activity.findViewById(R.id.total_time);
-        this.countDown = (TextView) activity.findViewById(R.id.count_down);
-        this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
-        this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
-        this.duration = new TimePeriod();
-        this.alarmFrequencyInMinutes = 1; // TODO variable
-        this.voice = new VoiceNotification(activity, (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE));
-        this.activity = activity;
-        this.isPaused = false;
+  public UpdateTask(final Activity activity) {
+    if (activity != null) {
+      this.totalTime = (TextView) activity.findViewById(R.id.total_time);
+      this.countDown = (TextView) activity.findViewById(R.id.count_down);
+      this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
+      this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
+      this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
+      this.voice = new VoiceNotification(activity);
+      this.activity = activity;
+      this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
+      alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
     }
 
-    @Override
-    public void run() {
-        this.activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                update();
-            }
-        });
-    }
+    this.duration = new TimePeriod();
+    this.isPaused = false;
+  }
 
-    public void update() {
-        if (isPaused == false) {
-            TimePeriod untilNextAlarm = getTimeUntilNextAlarm();
-            duration.tick();
-            this.totalTime.setText(TimePeriodFormat.simple(duration));
-            this.countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
-            if (untilNextAlarm.getAsSeconds() == 1) {
-                voiceNotification();
-            }
-        }
-    }
+  @Override
+  public void run() {
+    this.activity.runOnUiThread(new Runnable() {
+      @Override
+      public void run() {
+        update();
+      }
+    });
+  }
 
-    private TimePeriod getTimeUntilNextAlarm() {
-        int alarmFrequencyInSeconds = alarmFrequencyInMinutes * 60; // change this for faster testing.
-        int timeSinceLastAlarm = duration.getAsSeconds() % alarmFrequencyInSeconds;
-        return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
+  public void update() {
+    if (isPaused == false) {
+      TimePeriod untilNextAlarm = getTimeUntilNextAlarm();
+      duration.tick();
+      this.totalTime.setText(TimePeriodFormat.simple(duration));
+      this.countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
+      if (untilNextAlarm.getAsSeconds() == 1) {
+        voiceNotification();
+      }
     }
+  }
 
-    private void voiceNotification() {
-        if (sayCurrentTimeCheckBox.isChecked()) {
-            this.voice.appendCurrentTimeToQueue();
-        }
-        this.voice.appendPauseToQueue();
-        if (sayTotalTimeCheckBox.isChecked()) {
-            this.voice.appendTotalTimeToQueue(duration);
-        }
-        this.voice.sayQueue();
-    }
+  private TimePeriod getTimeUntilNextAlarm() {
+    int alarmFrequencyInSeconds = this.alarmFrequencyListener.getAsSeconds();
+    int timeSinceLastAlarm = duration.getAsSeconds() % alarmFrequencyInSeconds;
+    return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
+  }
 
-    public void pause() {
-        this.isPaused = true;
+  private void voiceNotification() {
+    if (sayCurrentTimeCheckBox.isChecked()) {
+      this.voice.appendCurrentTimeToQueue();
     }
+    this.voice.appendPauseToQueue();
+    if (sayTotalTimeCheckBox.isChecked()) {
+      this.voice.appendTotalTimeToQueue(duration);
+    }
+    this.voice.sayQueue();
+  }
 
-    public void resume() {
-        this.isPaused = false;
-    }
+  public void pause() {
+    this.isPaused = true;
+  }
+
+  public void resume() {
+    this.isPaused = false;
+  }
 }
