@@ -10,7 +10,7 @@ import java.util.TimerTask;
 public class UpdateTask extends TimerTask {
 
   private boolean isPaused;
-  final private Activity activity;
+  private Activity activity;
   private TextView totalTime;
   private TextView countDown;
   private CheckBox sayCurrentTimeCheckBox;
@@ -18,24 +18,25 @@ public class UpdateTask extends TimerTask {
   private SeekBar alarmFrequency;
   private AlarmFrequencyListener alarmFrequencyListener;
 
-
-  private TimePeriod duration;
+  public TimePeriod duration;
   private VoiceNotification voice;
 
 
   public UpdateTask(final Activity activity) {
-    this.totalTime = (TextView) activity.findViewById(R.id.total_time);
-    this.countDown = (TextView) activity.findViewById(R.id.count_down);
-    this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
-    this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
-    this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
+    if (activity != null) {
+      this.totalTime = (TextView) activity.findViewById(R.id.total_time);
+      this.countDown = (TextView) activity.findViewById(R.id.count_down);
+      this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
+      this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
+      this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
+      this.voice = new VoiceNotification(activity);
+      this.activity = activity;
+      this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
+      alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
+    }
 
     this.duration = new TimePeriod();
-    this.voice = new VoiceNotification(activity);
-    this.activity = activity;
     this.isPaused = false;
-    this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
-    alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
   }
 
   @Override
