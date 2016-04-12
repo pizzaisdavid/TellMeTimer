@@ -2,8 +2,11 @@ TODO: add reset button.
 
 
 count-up timer
- - only show the reset button when the timer is currently paused.
+- start at a specific time or start now.
+- only show the reset button when the timer is currently paused.
 
+count-down timer
+- duration or hit zero at a specific time.
 
 logo ideas
- - mouth/lips that make up the body of the alarm clocck.
+- mouth/lips that make up the body of the alarm clocck.
