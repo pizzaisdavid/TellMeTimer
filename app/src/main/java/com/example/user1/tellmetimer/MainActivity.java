@@ -9,7 +9,9 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
 
   private Button startButton;
-  private boolean isGoing = false; // TODO should this be initialized somewhere else?
+  private Button resetButton;
+  private boolean isGoing;
+  private StopWatch stopWatch;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -17,18 +19,24 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     startButton = (Button) findViewById(R.id.start_button);
+    resetButton = (Button) findViewById(R.id.reset_button);
+    stopWatch = new StopWatch(MainActivity.this);
+    isGoing = false;
+    resetButton.setVisibility(View.INVISIBLE);
+
 
     startButton.setOnClickListener(new View.OnClickListener() {
-      StopWatch stopWatch = new StopWatch(MainActivity.this);
 
       public void onClick(View view) {
         isGoing = swapState(isGoing);
         if (isGoing) {
           stopWatch.resume();
           startButton.setText("Pause");
+          resetButton.setVisibility(View.INVISIBLE);
         } else {
           stopWatch.pause();
           startButton.setText("Start");
+          resetButton.setVisibility(View.VISIBLE);
         }
       }
 
@@ -37,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
           return false;
         }
         return true;
+      }
+    });
+
+    resetButton.setOnClickListener(new View.OnClickListener() {
+
+      public void onClick(View view) {
+        if (isGoing == false) {
+          stopWatch.reset();
+          resetButton.setVisibility(View.INVISIBLE);
+        }
       }
     });
   }
