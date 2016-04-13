@@ -32,4 +32,8 @@ public class StopWatch {
   public void pause() {
     this.task.pause();
   }
+
+  public void reset() {
+    this.task.reset();
+  }
 }
