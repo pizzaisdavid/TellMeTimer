@@ -85,4 +85,10 @@ public class UpdateTask extends TimerTask {
   public void resume() {
     this.isPaused = false;
   }
+
+  public void reset() {
+    this.duration = new TimePeriod(0);
+    this.totalTime.setText("0 seconds");
+    this.countDown.setText("00:00");
+  }
 }
