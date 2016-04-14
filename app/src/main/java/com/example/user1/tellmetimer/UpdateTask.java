@@ -23,18 +23,15 @@ public class UpdateTask extends TimerTask {
 
 
   public UpdateTask(final Activity activity) {
-    if (activity != null) {
-      this.totalTime = (TextView) activity.findViewById(R.id.total_time);
-      this.countDown = (TextView) activity.findViewById(R.id.count_down);
-      this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
-      this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
-      this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
-      this.voice = new VoiceNotification(activity);
-      this.activity = activity;
-      this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
-      alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
-    }
-
+    this.totalTime = (TextView) activity.findViewById(R.id.total_time);
+    this.countDown = (TextView) activity.findViewById(R.id.count_down);
+    this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
+    this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
+    this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
+    this.voice = new VoiceNotification(activity);
+    this.activity = activity;
+    this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
+    this.alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
     this.duration = new TimePeriod();
     this.isPaused = false;
   }

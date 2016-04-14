@@ -8,22 +8,21 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({
+/*@Suite.SuiteClasses({
         UpdateTaskTest.pause.class
-})
+})*/
 
 public class UpdateTaskTest extends TestCase {
 
-
-  public static class pause {
-
     @Test
     public void doNotUpdate() throws Exception {
-      UpdateTask task = new UpdateTask(null); // TODO Make mock activity
-                                              // Method findViewById in android.app.Activity not mocked.
+      Activity mockActivity = Mockito.mock(Activity.class);
+      UpdateTask task = new UpdateTask(mockActivity); // TODO untangle dependencies or something
       Assert.assertEquals(0, task.duration.getAsSeconds());
       task.update();
       Assert.assertEquals(1, task.duration.getAsSeconds());
@@ -31,5 +30,4 @@ public class UpdateTaskTest extends TestCase {
       task.update();
       Assert.assertEquals(1, task.duration.getAsSeconds());
     }
-  }
 }
