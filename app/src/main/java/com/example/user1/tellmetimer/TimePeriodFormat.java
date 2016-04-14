@@ -34,7 +34,6 @@ public final class TimePeriodFormat {
   }
 
   public static String clock(TimePeriod duration) {
-    // TODO make functions for these.
     int minutes = duration.getMinutes();
     int seconds = duration.getSeconds();
     return addLeadingZeroIfNeeded(minutes) + ":" + addLeadingZeroIfNeeded(seconds);
