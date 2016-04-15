@@ -1,5 +1,6 @@
 package com.example.user1.tellmetimer;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.NotificationManager;
 import android.os.Bundle;
@@ -21,7 +22,7 @@ public class ClockCountUp extends Fragment {
 
     startButton = (Button) view.findViewById(R.id.start_button);
     resetButton = (Button) view.findViewById(R.id.reset_button);
-    //stopWatch = new StopWatch(MainActivity.this);
+    //stopWatch = new StopWatch(ClockCountUp.this);
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
 
@@ -61,18 +62,4 @@ public class ClockCountUp extends Fragment {
 
     return view;
   }
-
-  /*@Override
-  public void onWindowFocusChanged(boolean hasFocus) {
-    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-    StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
-    super.onWindowFocusChanged(hasFocus);
-    if (hasFocus == false) {
-      // TODO if app is open, and we open the notification drawer, it shouldn't push a notification.
-      backgroundNotification.show();
-    } else {
-      backgroundNotification.hide();
-    }
-  }*/
-  // TODO pick a start time or start now.
 }
