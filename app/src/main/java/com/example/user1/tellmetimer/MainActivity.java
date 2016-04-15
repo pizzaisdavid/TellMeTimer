@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
     super.onWindowFocusChanged(hasFocus);
-    if (hasFocus == false) {
-      // TODO if app is open, and we open the notification drawer, it shouldn't push a notification.
+    if (hasFocus == false || isGoing == true) {
+      // TODO NEXT-ISH if paused, don't make notification.
       backgroundNotification.show();
     } else {
       backgroundNotification.hide();
