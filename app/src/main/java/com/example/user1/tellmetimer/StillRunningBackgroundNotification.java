@@ -1,5 +1,6 @@
 package com.example.user1.tellmetimer;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -36,7 +37,8 @@ public class StillRunningBackgroundNotification {
             .setContentTitle("Time is still ticking!")
             .setContentText("Time to learn about notifications!")
             .setSubText("Tap to view documentation about notifications.")
-            .setPriority(0);
+            .setPriority(0)
+            .setOngoing(true);
     return builder;
   }
 
