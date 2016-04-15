@@ -4,6 +4,8 @@
               android:layout_height="match_parent"
               tools:context=".MainActivity">
 
+    <!--TODO put the "Tell Me Timer" top part here. -->
+
     <TabHost
         android:id="@+id/tabHost"
         android:layout_width="match_parent"
@@ -30,13 +32,9 @@
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#ffc916"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="This is tab 1" />
+                    <include layout="@layout/clock_count_up"/>
 
                 </LinearLayout>
 
