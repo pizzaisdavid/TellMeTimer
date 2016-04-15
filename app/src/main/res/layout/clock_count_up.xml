@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<android.support.design.widget.FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.user1.tellmetimer.MainActivity">
+    tools:context=".ClockCountUp">
 
 
     <android.support.design.widget.AppBarLayout
@@ -35,4 +35,4 @@
 
     <include layout="@layout/content_main"/>
 
-</android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.FrameLayout>

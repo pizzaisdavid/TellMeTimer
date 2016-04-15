@@ -1,75 +1,53 @@
 package com.example.user1.tellmetimer;
-
-import android.app.NotificationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TabHost;
 
 public class MainActivity extends AppCompatActivity {
-
-  private Button startButton;
-  private Button resetButton;
-  private boolean isGoing;
-  private StopWatch stopWatch;
+  TabHost host;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    // TODO add countdown alarm option Five minutes remaining, three minutes remaining...
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    startButton = (Button) findViewById(R.id.start_button);
-    resetButton = (Button) findViewById(R.id.reset_button);
-    stopWatch = new StopWatch(MainActivity.this);
-    isGoing = false;
-    resetButton.setVisibility(View.INVISIBLE);
 
+    host = (TabHost)findViewById(R.id.tabHost);
+    host.setup();
 
-    startButton.setOnClickListener(new View.OnClickListener() {
+    //Tab 1
+    TabHost.TabSpec spec = host.newTabSpec("Tab One");
+    spec.setContent(R.id.tab1);
+    spec.setIndicator("Tab One");
+    host.addTab(spec);
 
-      public void onClick(View view) {
-        isGoing = swapState(isGoing);
-        if (isGoing) {
-          stopWatch.resume();
-          startButton.setText("Pause");
-          resetButton.setVisibility(View.INVISIBLE);
-        } else {
-          stopWatch.pause();
-          startButton.setText("Start");
-          resetButton.setVisibility(View.VISIBLE);
-        }
-      }
-
-      private boolean swapState(boolean state) {
-        if (state) {
-          return false;
-        }
-        return true;
-      }
-    });
-
-    resetButton.setOnClickListener(new View.OnClickListener() {
-
-      public void onClick(View view) {
-        if (isGoing == false) {
-          stopWatch.reset();
-          resetButton.setVisibility(View.INVISIBLE);
-        }
-      }
-    });
+    //Tab 2
+    spec = host.newTabSpec("Tab Two");
+    spec.setContent(R.id.tab2);
+    spec.setIndicator("Tab Two");
+    host.addTab(spec);
   }
 
   @Override
-  public void onWindowFocusChanged(boolean hasFocus) {
-    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-    StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
-    super.onWindowFocusChanged(hasFocus);
-    if (hasFocus == false) {
-      // TODO if app is open, and we open the notification drawer, it shouldn't push a notification.
-      backgroundNotification.show();
-    } else {
-      backgroundNotification.hide();
-    }
+  public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.menu_main, menu);
+    return true;
   }
-  // TODO pick a start time or start now.
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    // Handle action bar item clicks here. The action bar will
+    // automatically handle clicks on the Home/Up button, so long
+    // as you specify a parent activity in AndroidManifest.xml.
+    int id = item.getItemId();
+
+    //noinspection SimplifiableIfStatement
+    if (id == R.id.action_settings) {
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
 }
