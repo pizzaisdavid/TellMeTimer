@@ -1,5 +1,6 @@
 package com.example.user1.tellmetimer;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -33,10 +34,12 @@ public class StillRunningBackgroundNotification {
             .setContentIntent(pendingIntent)
             .setAutoCancel(false)
             .setCategory("service")
-            .setContentTitle("Time is still ticking!")
-            .setContentText("Time to learn about notifications!")
-            .setSubText("Tap to view documentation about notifications.")
-            .setPriority(0);
+            .setContentTitle("TellMeTimer is still ticking.")
+            .setContentText("Touch to check.")
+            //.setSubText("Tap to view documentation about notifications.")
+            .setPriority(0)
+            .setOngoing(true);
+    //TODO add pause and quit option?
     return builder;
   }
 
