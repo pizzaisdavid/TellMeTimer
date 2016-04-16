@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+
+    //TODO app is unresponsive for a few seconds after start. Started after adding tabs.
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
@@ -42,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     resetButton.setVisibility(View.INVISIBLE);
 
     startButton.setOnClickListener(new View.OnClickListener() {
+
+      // TODO back button should remember tabs
 
       public void onClick(View view) {
         isGoing = swapState(isGoing);
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
     super.onWindowFocusChanged(hasFocus);
-    if (hasFocus == false || isGoing == true) {
+    if (hasFocus == false && isGoing == true) {
       // TODO NEXT-ISH if paused, don't make notification.
       backgroundNotification.show();
     } else {
