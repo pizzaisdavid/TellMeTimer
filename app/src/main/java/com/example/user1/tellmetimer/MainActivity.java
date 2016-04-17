@@ -1,5 +1,4 @@
 package com.example.user1.tellmetimer;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TabHost;
@@ -16,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     host = (TabHost) findViewById(R.id.tabHost);
     host.setup();
+
+    // TODO get ClockCountUp going
 
     //Tab 1
     TabHost.TabSpec spec = host.newTabSpec("Count Up");
