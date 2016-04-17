@@ -1,24 +1,25 @@
 package com.example.user1.tellmetimer;
 
-import android.app.Fragment;
+import android.app.Activity;
+import android.app.NotificationManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
-public class ClockCountUp extends Fragment {
+public class ClockCountUp extends Activity {
 
   private Button startButton;
   private Button resetButton;
   private boolean isGoing;
   private StopWatch stopWatch; // TODO why does this work anyways?
 
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-    View view = inflater.inflate(R.layout.clock_count_up, container, false);
-
-    startButton = (Button) view.findViewById(R.id.start_button);
-    resetButton = (Button) view.findViewById(R.id.reset_button);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState)
+    ;
+    startButton = (Button) findViewById(R.id.start_button);
+    resetButton = (Button) findViewById(R.id.reset_button);
+    stopWatch = new StopWatch(this);
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
 
@@ -55,7 +56,18 @@ public class ClockCountUp extends Fragment {
         }
       }
     });
+  }
 
-    return view;
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus) {
+    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+    StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
+    super.onWindowFocusChanged(hasFocus);
+    if (hasFocus == false && isGoing == true) {
+      // TODO NEXT-ISH if paused, don't make notification.
+      backgroundNotification.show();
+    } else {
+      backgroundNotification.hide();
+    }
   }
 }
