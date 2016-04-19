@@ -1,6 +1,7 @@
 package com.example.user1.tellmetimer;
 
 import android.app.Activity;
+import android.view.View;
 
 import java.util.Timer;
 
@@ -10,7 +11,7 @@ public class StopWatch {
   private UpdateTask task;
   // TODO duration should probably be in this class?
 
-  public StopWatch(final Activity activity) {
+  public StopWatch(Activity activity) {
     this.schedule = new Timer();
     this.task = new UpdateTask(activity);
     initialize();

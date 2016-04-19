@@ -16,22 +16,20 @@ public class UpdateTask extends TimerTask {
   private CheckBox sayCurrentTimeCheckBox;
   private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
   private SeekBar alarmFrequency;
-  private AlarmFrequencyListener alarmFrequencyListener;
-
+  //private AlarmFrequencyListener alarmFrequencyListener;
   public TimePeriod duration;
   private VoiceNotification voice;
 
-
-  public UpdateTask(final Activity activity) {
+  public UpdateTask(Activity activity) {
+    this.activity = activity;
     this.totalTime = (TextView) activity.findViewById(R.id.total_time);
     this.countDown = (TextView) activity.findViewById(R.id.count_down);
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
     this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
     this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
     this.voice = new VoiceNotification(activity);
-    this.activity = activity;
-    this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
-    this.alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
+    //this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
+    //this.alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
     this.duration = new TimePeriod();
     this.isPaused = false;
   }
@@ -59,7 +57,7 @@ public class UpdateTask extends TimerTask {
   }
 
   private TimePeriod getTimeUntilNextAlarm() {
-    int alarmFrequencyInSeconds = this.alarmFrequencyListener.getAsSeconds();
+    int alarmFrequencyInSeconds = 60; //this.alarmFrequencyListener.getAsSeconds();
     int timeSinceLastAlarm = duration.getAsSeconds() % alarmFrequencyInSeconds;
     return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
   }

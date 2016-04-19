@@ -1,6 +1,8 @@
 package com.example.user1.tellmetimer;
 
 import android.app.Fragment;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,16 +14,15 @@ public class ClockCountUp extends Fragment {
   private Button startButton;
   private Button resetButton;
   private boolean isGoing;
-  private StopWatch stopWatch; // TODO why does this work anyways?
+  private StopWatch stopWatch;
 
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
     View view = inflater.inflate(R.layout.clock_count_up, container, false);
-
     startButton = (Button) view.findViewById(R.id.start_button);
     resetButton = (Button) view.findViewById(R.id.reset_button);
+    stopWatch = new StopWatch(getActivity());
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
-
 
     startButton.setOnClickListener(new View.OnClickListener() {
 
@@ -55,7 +56,18 @@ public class ClockCountUp extends Fragment {
         }
       }
     });
-
     return view;
   }
+
+/*  @Override
+  public void onResume() {
+    NotificationManager notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+    StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(getContext(), notificationManager);
+    if (isGoing == true) {
+      // TODO NEXT-ISH if paused, don't make notification.
+      backgroundNotification.show();
+    } else {
+      backgroundNotification.hide();
+    }
+  }*/
 }
