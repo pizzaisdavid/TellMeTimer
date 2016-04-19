@@ -1,9 +1,11 @@
 package com.example.user1.tellmetimer;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +13,19 @@ import android.widget.Button;
 
 public class ClockCountUp extends Fragment {
 
+  private Activity activity;
   private Button startButton;
   private Button resetButton;
   private boolean isGoing;
   private StopWatch stopWatch;
 
-  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+    // TODO something about running onAttach or something
     View view = inflater.inflate(R.layout.clock_count_up, container, false);
-    startButton = (Button) view.findViewById(R.id.start_button);
-    resetButton = (Button) view.findViewById(R.id.reset_button);
-    stopWatch = new StopWatch(getActivity());
+    startButton = (Button) activity.findViewById(R.id.start_button);
+    resetButton = (Button) activity.findViewById(R.id.reset_button);
+    stopWatch = new StopWatch(activity);
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
 
@@ -57,6 +62,12 @@ public class ClockCountUp extends Fragment {
       }
     });
     return view;
+  }
+
+  @Override
+  public void onActivityCreated(Bundle savedInstanceState) {
+    super.onActivityCreated(savedInstanceState);
+    this.activity = getActivity();
   }
 
 /*  @Override

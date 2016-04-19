@@ -11,7 +11,7 @@ public class UpdateTask extends TimerTask {
 
   private boolean isPaused;
   private Activity activity;
-  private TextView totalTime;
+  private final TextView totalTime;
   private TextView countDown;
   private CheckBox sayCurrentTimeCheckBox;
   private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
@@ -48,8 +48,8 @@ public class UpdateTask extends TimerTask {
     if (isPaused == false) {
       TimePeriod untilNextAlarm = getTimeUntilNextAlarm();
       duration.tick();
-      this.totalTime.setText(TimePeriodFormat.simple(duration));
-      this.countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
+      totalTime.setText(TimePeriodFormat.simple(duration)); // TODO this is broke
+      countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
       if (untilNextAlarm.getAsSeconds() == 1) {
         voiceNotification();
       }

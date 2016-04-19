@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     FragmentTransaction ft = getFragmentManager().beginTransaction();
-    ft.replace(R.id.fragment_container, new ClockCountUp());
+    ft.add(R.id.fragment_container, new ClockCountUp());
     ft.commit();
       // TODO back button should remember tabs
   }
