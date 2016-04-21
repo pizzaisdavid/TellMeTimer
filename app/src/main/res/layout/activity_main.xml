@@ -34,7 +34,12 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <include layout="@layout/clock_count_up"/>
+                    <fragment android:name="com.example.user1.tellmetimer.ClockCountUp"
+                              android:id="@+id/article_fragment"
+                              android:layout_weight="2"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              tools:layout="@layout/clock_count_up"/>
 
                 </LinearLayout>
 
