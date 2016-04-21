@@ -18,6 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary">
 
+<<<<<<< HEAD
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,6 +28,14 @@
                 android:id="@+id/toolbar_title"
                 android:textColor="@color/white"
                 />
+=======
+                    <fragment android:name="com.example.user1.tellmetimer.ClockCountUp"
+                              android:id="@+id/article_fragment"
+                              android:layout_weight="2"
+                              android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              tools:layout="@layout/clock_count_up"/>
+>>>>>>> origin/master
 
         </android.support.v7.widget.Toolbar>
 

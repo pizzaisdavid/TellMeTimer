@@ -1,19 +1,10 @@
 package com.example.user1.tellmetimer;
-import android.app.NotificationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TabHost;
-import android.widget.Button;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
   TabHost host;
-  private Button startButton;
-  private Button resetButton;
-  private boolean isGoing;
-  private StopWatch stopWatch;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     //TODO app is unresponsive for a few seconds after start. Started after adding tabs.
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+<<<<<<< HEAD
     startButton = (Button) findViewById(R.id.start_button);
     resetButton = (Button) findViewById(R.id.reset_button);
     stopWatch = new StopWatch(MainActivity.this);
@@ -96,6 +88,25 @@ public class MainActivity extends AppCompatActivity {
     } else {
       backgroundNotification.hide();
     }
+=======
+
+    host = (TabHost) findViewById(R.id.tabHost);
+    host.setup();
+
+    // TODO get ClockCountUp going
+
+    //Tab 1
+    TabHost.TabSpec spec = host.newTabSpec("Count Up");
+    spec.setContent(R.id.tab1);
+    spec.setIndicator("Count Up");
+    host.addTab(spec);
+
+    //Tab 2
+    spec = host.newTabSpec("Count Down");
+    spec.setContent(R.id.tab2);
+    spec.setIndicator("Count Down");
+    host.addTab(spec);
+>>>>>>> origin/master
   }
   // TODO pick a start time or start now.
 }
