@@ -21,22 +21,6 @@ public class MainActivity extends AppCompatActivity {
     //TODO app is unresponsive for a few seconds after start. Started after adding tabs.
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
-    host = (TabHost)findViewById(R.id.tabHost);
-    host.setup();
-
-    //Tab 1
-    TabHost.TabSpec spec = host.newTabSpec("Count Up");
-    spec.setContent(R.id.tab1);
-    spec.setIndicator("Count Up");
-    host.addTab(spec);
-
-    //Tab 2
-    spec = host.newTabSpec("Count Down");
-    spec.setContent(R.id.tab2);
-    spec.setIndicator("Count Down");
-    host.addTab(spec);
-
     startButton = (Button) findViewById(R.id.start_button);
     resetButton = (Button) findViewById(R.id.reset_button);
     stopWatch = new StopWatch(MainActivity.this);
