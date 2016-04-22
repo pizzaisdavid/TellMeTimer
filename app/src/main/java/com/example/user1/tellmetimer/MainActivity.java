@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TabHost;
 import android.widget.Button;
 import android.view.View;
 
+// TODO make a toast when volume is muted to notify.
+
 public class MainActivity extends AppCompatActivity {
-  TabHost host;
   private Button startButton;
   private Button resetButton;
   private boolean isGoing;
