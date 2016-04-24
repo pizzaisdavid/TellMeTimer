@@ -1,17 +1,16 @@
 package com.example.user1.tellmetimer;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.LayoutParams;
 
 // TODO make a toast when volume is muted to notify.
 
-public class MainActivity extends Activity {
-
-  private static final int CONTENT_VIEW_ID = 10101010;
+public class MainActivity extends FragmentActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +23,10 @@ public class MainActivity extends Activity {
 
     if (savedInstanceState == null) {
       Fragment newFragment = new ClockCountUp();
-      FragmentTransaction ft = getFragmentManager().beginTransaction();
-      ft.add(android.R.id.content, newFragment).commit();
+      getSupportFragmentManager()
+              .beginTransaction()
+              .add(android.R.id.content, newFragment)
+              .commit();
     }
   }
   // TODO pick a start time or start now.
