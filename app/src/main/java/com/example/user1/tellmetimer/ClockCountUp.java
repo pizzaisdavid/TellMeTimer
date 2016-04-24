@@ -16,14 +16,18 @@ public class ClockCountUp extends Fragment {
   private boolean isGoing;
   private StopWatch stopWatch;
 
+  public ClockCountUp() {
+
+  }
+
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
     View view = inflater.inflate(R.layout.clock_count_up, container, false);
-
     startButton = (Button) view.findViewById(R.id.start_button);
     resetButton = (Button) view.findViewById(R.id.reset_button);
-    //stopWatch = new StopWatch(this); //TODO get this working
+    startButton.setText("test");
+    //stopWatch = new StopWatch(getActivity()); //TODO get this working
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
     startButton.setOnClickListener(new View.OnClickListener() {
@@ -31,11 +35,11 @@ public class ClockCountUp extends Fragment {
       public void onClick(View view) {
         isGoing = swapState(isGoing);
         if (isGoing) {
-          stopWatch.resume();
+          //stopWatch.resume();
           startButton.setText("Pause");
           resetButton.setVisibility(View.INVISIBLE);
         } else {
-          stopWatch.pause();
+          //stopWatch.pause();
           startButton.setText("Start");
           resetButton.setVisibility(View.VISIBLE);
         }
@@ -68,7 +72,6 @@ public class ClockCountUp extends Fragment {
     StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
     super.onWindowFocusChanged(hasFocus);
     if (hasFocus == false && isGoing == true) {
-      // TODO NEXT-ISH if paused, don't make notification.
       backgroundNotification.show();
     } else {
       backgroundNotification.hide();
