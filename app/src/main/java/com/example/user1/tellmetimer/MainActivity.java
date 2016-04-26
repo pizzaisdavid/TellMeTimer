@@ -5,10 +5,14 @@ package com.example.user1.tellmetimer;
 // TODO pick a start time or start now.
 
 import android.app.NotificationManager;
+import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
     stopWatch = new StopWatch(MainActivity.this);
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
+
+    AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+    // TODO show this everyime it is opened and muted.
+    if (audio.getRingerMode() == AudioManager.RINGER_MODE_SILENT) {
+      Toast toast = Toast.makeText(getApplicationContext(), "The voice notification may be hard to hear.", Toast.LENGTH_LONG);
+      toast.setGravity(Gravity.BOTTOM|Gravity.LEFT, 0, 0);
+      toast.show();
+    }
+
+
     startButton.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View view) {
