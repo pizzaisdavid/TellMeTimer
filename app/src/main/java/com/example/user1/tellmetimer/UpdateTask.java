@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
 import java.util.TimerTask;
 
 public class UpdateTask extends TimerTask {
@@ -22,7 +21,7 @@ public class UpdateTask extends TimerTask {
   private VoiceNotification voice;
 
 
-  public UpdateTask(final Activity activity) {
+  public UpdateTask(Activity activity) {
     this.totalTime = (TextView) activity.findViewById(R.id.total_time);
     this.countDown = (TextView) activity.findViewById(R.id.count_down);
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
