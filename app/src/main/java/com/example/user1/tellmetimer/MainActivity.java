@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
   private Button resetButton;
   private boolean isGoing;
   private StopWatch stopWatch;
+  private AudioManager audioManager;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -30,14 +31,7 @@ public class MainActivity extends AppCompatActivity {
     stopWatch = new StopWatch(MainActivity.this);
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
-
-    AudioManager audio = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-    // TODO show this everyime it is opened and muted.
-    if (audio.getRingerMode() == AudioManager.RINGER_MODE_SILENT) {
-      Toast toast = Toast.makeText(getApplicationContext(), "The voice notification may be hard to hear.", Toast.LENGTH_LONG);
-      toast.setGravity(Gravity.BOTTOM|Gravity.LEFT, 0, 0);
-      toast.show();
-    }
+    audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
 
     startButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
       backgroundNotification.show();
     } else {
       backgroundNotification.hide();
+    }
+
+    if (hasFocus == true) {
+      String mutedMessage = "Your phone is muted. The voice notification is disabled";
+      int ringerMode = audioManager.getRingerMode();
+      if (ringerMode == AudioManager.RINGER_MODE_SILENT ||
+              ringerMode == AudioManager.RINGER_MODE_VIBRATE) {
+        Toast toast = Toast.makeText(getApplicationContext(), mutedMessage, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER,0, 60);
+        toast.show();
+      }
     }
   }
 }
