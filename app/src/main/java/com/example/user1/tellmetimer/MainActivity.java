@@ -3,6 +3,7 @@ package com.example.user1.tellmetimer;
 // TODO make a toast when volume is muted to notify.
 // TODO app is unresponsive for a few seconds after start. Started after adding tabs.
 // TODO pick a start time or start now.
+// TODO add app widget http://developer.android.com/guide/topics/appwidgets/index.html
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
+
     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
     super.onWindowFocusChanged(hasFocus);
