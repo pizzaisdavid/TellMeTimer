@@ -1,24 +1,30 @@
 package com.example.user1.tellmetimer;
-import android.app.NotificationManager;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Button;
-import android.view.View;
 
 // TODO make a toast when volume is muted to notify.
+// TODO app is unresponsive for a few seconds after start. Started after adding tabs.
+// TODO pick a start time or start now.
+// TODO add app widget http://developer.android.com/guide/topics/appwidgets/index.html
+
+import android.app.NotificationManager;
+import android.content.Context;
+import android.media.AudioManager;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
   private Button startButton;
   private Button resetButton;
   private boolean isGoing;
   private StopWatch stopWatch;
+  private AudioManager audioManager;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-
-    //TODO app is unresponsive for a few seconds after start. Started after adding tabs.
+  public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     startButton = (Button) findViewById(R.id.start_button);
@@ -26,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
     stopWatch = new StopWatch(MainActivity.this);
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
+    audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
 
     startButton.setOnClickListener(new View.OnClickListener() {
-
-      // TODO back button should remember tabs
 
       public void onClick(View view) {
         isGoing = swapState(isGoing);
@@ -64,29 +70,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return true;
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
-    }
-
-    return super.onOptionsItemSelected(item);
-  }
-
-  @Override
   public void onWindowFocusChanged(boolean hasFocus) {
+
     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
     super.onWindowFocusChanged(hasFocus);
@@ -95,6 +80,16 @@ public class MainActivity extends AppCompatActivity {
     } else {
       backgroundNotification.hide();
     }
+
+    if (hasFocus == true) {
+      String mutedMessage = "Your phone is muted. The voice notification is disabled";
+      int ringerMode = audioManager.getRingerMode();
+      if (ringerMode == AudioManager.RINGER_MODE_SILENT ||
+              ringerMode == AudioManager.RINGER_MODE_VIBRATE) {
+        Toast toast = Toast.makeText(getApplicationContext(), mutedMessage, Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER,0, 60);
+        toast.show();
+      }
+    }
   }
-  // TODO pick a start time or start now.
 }
