@@ -1,4 +1,4 @@
-package com.example.user1.tellmetimer;
+package com.pizzaisdavid.david.tellmetimer;
 
 // TODO make a toast when volume is muted to notify.
 // TODO app is unresponsive for a few seconds after start. Started after adding tabs.

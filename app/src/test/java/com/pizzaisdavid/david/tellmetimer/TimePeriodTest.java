@@ -1,4 +1,4 @@
-package com.example.user1.tellmetimer;
+package com.pizzaisdavid.david.tellmetimer;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;

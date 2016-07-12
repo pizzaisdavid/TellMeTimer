@@ -12,7 +12,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
     defaultConfig {
-        applicationId "com.example.user1.tellmetimer"
+        applicationId "com.pizzaisdavid.david.tellmetimer"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1

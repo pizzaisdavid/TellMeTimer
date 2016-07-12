@@ -1,6 +1,5 @@
-package com.example.user1.tellmetimer;
+package com.pizzaisdavid.david.tellmetimer;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;

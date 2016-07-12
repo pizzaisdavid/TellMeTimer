@@ -1,4 +1,4 @@
-package com.example.user1.tellmetimer;
+package com.pizzaisdavid.david.tellmetimer;
 
 import android.app.Activity;
 import android.widget.CheckBox;

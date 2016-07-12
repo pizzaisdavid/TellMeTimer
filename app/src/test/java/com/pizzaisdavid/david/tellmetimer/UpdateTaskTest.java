@@ -1,4 +1,4 @@
-package com.example.user1.tellmetimer;
+package com.pizzaisdavid.david.tellmetimer;
 
 import android.app.Activity;
 
@@ -7,7 +7,6 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
