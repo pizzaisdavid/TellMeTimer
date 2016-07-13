@@ -1,5 +1,7 @@
 # TellMeTimer
+#### The timer that talks to you!
 
-Tell Me Timer is great for when you're timing your excerises, daily routines, or just tracking time.
+With TellMeTime you can hear the current time and duration of the app's timer at a frequency of your choosing.
+Its great for when you're timing your excerises, daily routines, or just tracking time.
 
-![Alt text](TellMeTimer.png)
+![Alt text](store-assets/TellMeTimer.png)
