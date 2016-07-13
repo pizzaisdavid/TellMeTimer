@@ -4,6 +4,7 @@ package com.pizzaisdavid.david.tellmetimer;
 // TODO app is unresponsive for a few seconds after start. Started after adding tabs.
 // TODO pick a start time or start now.
 // TODO add app widget http://developer.android.com/guide/topics/appwidgets/index.html
+// TODO change "TellMeTimer" to "Tell Me Timer" or not!
 
 import android.app.NotificationManager;
 import android.content.Context;
