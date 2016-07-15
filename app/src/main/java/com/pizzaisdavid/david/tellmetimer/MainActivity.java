@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         }
       }
 
-      private boolean swapState(boolean state) {
+      public boolean swapState(boolean state) {
         if (state) {
           return false;
         }
