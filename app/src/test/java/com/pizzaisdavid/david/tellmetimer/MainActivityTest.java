@@ -1,20 +1,14 @@
 package com.pizzaisdavid.david.tellmetimer;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 
-
-@RunWith(Suite.class)
-
-public class MainActivityTest extends TestCase {
-
+public class MainActivityTest {
 
     @Test
-    public void swapState() throws Exception {
-        Assert.assertFalse(true);
+    public void swapState_False_ReturnsTrue() {
+        boolean result = false;
+        Assert.assertTrue(result);
     }
 }
