@@ -1,7 +1,6 @@
 package com.pizzaisdavid.david.tellmetimer;
 
 public class TimePeriod {
-
   final int SECONDS_PER_MINUTE = 60;
   private int seconds;
 
