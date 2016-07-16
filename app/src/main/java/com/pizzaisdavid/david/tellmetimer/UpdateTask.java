@@ -5,10 +5,13 @@ import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.TimerTask;
 
 public class UpdateTask extends TimerTask {
-
+  private static final Logger logger = LoggerFactory.getLogger(UpdateTask.class);
   public TimePeriod duration;
   private boolean isPaused;
   private Activity activity;
@@ -22,6 +25,7 @@ public class UpdateTask extends TimerTask {
 
 
   public UpdateTask(Activity activity) {
+    logger.info("Initialize with activity");
     this.totalTime = (TextView) activity.findViewById(R.id.total_time);
     this.countDown = (TextView) activity.findViewById(R.id.count_down);
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
@@ -60,6 +64,7 @@ public class UpdateTask extends TimerTask {
   private TimePeriod getTimeUntilNextAlarm() {
     int alarmFrequencyInSeconds = this.alarmFrequencyListener.getAsSeconds();
     int timeSinceLastAlarm = duration.getAsSeconds() % alarmFrequencyInSeconds;
+    logger.debug("Time since last alarm: {}", timeSinceLastAlarm);
     return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
   }
 

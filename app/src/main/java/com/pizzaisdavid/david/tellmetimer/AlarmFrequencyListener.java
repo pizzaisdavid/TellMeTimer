@@ -23,6 +23,7 @@ public class AlarmFrequencyListener implements SeekBar.OnSeekBarChangeListener {
   @Override
   public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
     minutes = progress + 1;
+    logger.info("onProgressChanged minutes set to {}", minutes);
     alarmFrequencyText.setText(AlarmFrequencyFormat.format(minutes));
   }
 
@@ -36,6 +37,8 @@ public class AlarmFrequencyListener implements SeekBar.OnSeekBarChangeListener {
 
   public int getAsSeconds() {
     final int SECONDS_PER_MINUTE = 60;
-    return minutes * SECONDS_PER_MINUTE;
+    int seconds = minutes * SECONDS_PER_MINUTE;
+    logger.info("Convert {} minutes to {} seconds", minutes, seconds);
+    return seconds;
   }
 }
