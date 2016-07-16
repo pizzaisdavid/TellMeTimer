@@ -6,10 +6,9 @@ import android.media.AudioManager;
 import android.speech.tts.UtteranceProgressListener;
 
 public class RequestAudioFocus extends UtteranceProgressListener {
-
   private AudioManager audioManager;
-  AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
 
+  AudioManager.OnAudioFocusChangeListener audioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
     @Override
     public void onAudioFocusChange(int focusChange) {
       switch (focusChange) {
@@ -23,17 +22,21 @@ public class RequestAudioFocus extends UtteranceProgressListener {
   };
 
   public RequestAudioFocus(Activity activity) {
-    this.audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
+    audioManager = (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
   }
 
   @Override
   public void onStart(String utteranceId) {
-    this.audioManager.requestAudioFocus(audioFocusChangeListener, AudioManager.STREAM_NOTIFICATION, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
+    audioManager.requestAudioFocus(
+      audioFocusChangeListener,
+      AudioManager.STREAM_NOTIFICATION,
+      AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
+    );
   }
 
   @Override
   public void onDone(String utteranceId) {
-    this.audioManager.abandonAudioFocus(audioFocusChangeListener);
+    audioManager.abandonAudioFocus(audioFocusChangeListener);
   }
 
   @Override
