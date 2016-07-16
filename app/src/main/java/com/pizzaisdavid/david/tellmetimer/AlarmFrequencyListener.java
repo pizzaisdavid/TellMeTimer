@@ -15,9 +15,9 @@ public class AlarmFrequencyListener implements SeekBar.OnSeekBarChangeListener {
 
   public AlarmFrequencyListener(Activity activity) {
     logger.info("Initializing");
-    int DEFAUlT_ALARM_FREQUENCY = 2;
+    int DEFAULT_ALARM_FREQUENCY = 2;
     this.alarmFrequencyText = (TextView) activity.findViewById(R.id.alarm_frequency_text);
-    minutes = DEFAUlT_ALARM_FREQUENCY;
+    minutes = DEFAULT_ALARM_FREQUENCY;
   }
 
   @Override
@@ -35,7 +35,7 @@ public class AlarmFrequencyListener implements SeekBar.OnSeekBarChangeListener {
   }
 
   public int getAsSeconds() {
-    final int SECONDS_PER_MINUTE = 60; // change this for faster testing.
+    final int SECONDS_PER_MINUTE = 60;
     return minutes * SECONDS_PER_MINUTE;
   }
 }
