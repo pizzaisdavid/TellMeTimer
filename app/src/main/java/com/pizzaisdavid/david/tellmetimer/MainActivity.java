@@ -16,8 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class MainActivity extends AppCompatActivity {
+  private static final Logger logger = LoggerFactory.getLogger(MainActivity.class);
   private Button startButton;
   private Button resetButton;
   private boolean isGoing;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    logger.info("onCreate");
     startButton = (Button) findViewById(R.id.start_button);
     resetButton = (Button) findViewById(R.id.reset_button);
     StopWatchSchedule stopWatchSchedule = new StopWatchSchedule();
@@ -38,16 +42,18 @@ public class MainActivity extends AppCompatActivity {
     resetButton.setVisibility(View.INVISIBLE);
     audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
-
     startButton.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View view) {
+        logger.info("Start/Pause button was clicked");
         isGoing = swapState(isGoing);
         if (isGoing) {
+          logger.debug("Start button was clicked");
           stopWatch.resume();
           startButton.setText("Pause");
           resetButton.setVisibility(View.INVISIBLE);
         } else {
+          logger.debug("Pause button was clicked");
           stopWatch.pause();
           startButton.setText("Start");
           resetButton.setVisibility(View.VISIBLE);
@@ -65,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     resetButton.setOnClickListener(new View.OnClickListener() {
 
       public void onClick(View view) {
+        logger.info("Reset button was clicked");
         if (isGoing == false) {
           stopWatch.reset();
           resetButton.setVisibility(View.INVISIBLE);
@@ -75,13 +82,15 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public void onWindowFocusChanged(boolean hasFocus) {
-
+    logger.info("onWindowFocusChanged");
     NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     StillRunningBackgroundNotification backgroundNotification = new StillRunningBackgroundNotification(this, notificationManager);
     super.onWindowFocusChanged(hasFocus);
     if (hasFocus == false && isGoing == true) {
+      logger.debug("Running in the background");
       backgroundNotification.show();
     } else {
+      logger.debug("Has main focus");
       backgroundNotification.hide();
     }
 

@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class AlarmFrequencyListener implements SeekBar.OnSeekBarChangeListener {
-
+  private static final Logger logger = LoggerFactory.getLogger(AlarmFrequencyListener.class);
   private int minutes;
   private TextView alarmFrequencyText;
 
   public AlarmFrequencyListener(Activity activity) {
+    logger.info("Initializing");
     this.alarmFrequencyText = (TextView) activity.findViewById(R.id.alarm_frequency_text);
     this.minutes = 2;
   }

@@ -1,7 +1,5 @@
 package com.pizzaisdavid.david.tellmetimer;
 
-import android.util.Log;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,14 +21,17 @@ public class StopWatch {
   }
 
   public void resume() {
+    logger.info("Resume");
     task.resume();
   }
 
   public void pause() {
+    logger.info("Pause");
     task.pause();
   }
 
   public void reset() {
+    logger.info("Reset");
     task.reset();
   }
 }
