@@ -4,15 +4,19 @@ import android.app.Activity;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.Locale;
 
 public class Voice implements TextToSpeech.OnInitListener {
-
+  private static final Logger logger = LoggerFactory.getLogger(Voice.class);
   private TextToSpeech textToSpeech;
   private HashMap<String, String> map;
 
   public Voice(Activity activity) {
+    logger.info("Initialize");
     this.textToSpeech = new TextToSpeech(activity, this);
     this.textToSpeech.setOnUtteranceProgressListener(new RequestAudioFocus(activity));
     this.map = getHashMap();

@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TimePeriod {
-  private static final Logger logger = LoggerFactory.getLogger(MainActivity.class);
+  private static final Logger logger = LoggerFactory.getLogger(TimePeriod.class);
   final int SECONDS_PER_MINUTE = 60;
   private int seconds;
 
@@ -18,19 +18,22 @@ public class TimePeriod {
   }
 
   public void tick() {
-    logger.info("tick second");
-    this.seconds++;
+    int incrementedSeconds = seconds + 1;
+    logger.info("tick {} to {}", seconds, incrementedSeconds);
+    seconds = incrementedSeconds;
   }
 
   public int getAsSeconds() {
-    return this.seconds;
+    return seconds;
   }
 
   public int getSeconds() {
-    return this.seconds % this.SECONDS_PER_MINUTE;
+    return seconds % SECONDS_PER_MINUTE;
   }
 
   public int getMinutes() {
-    return this.seconds / this.SECONDS_PER_MINUTE;
+    int minutes = seconds / SECONDS_PER_MINUTE;
+    logger.debug("getMinutes {}", minutes);
+    return minutes;
   }
 }
