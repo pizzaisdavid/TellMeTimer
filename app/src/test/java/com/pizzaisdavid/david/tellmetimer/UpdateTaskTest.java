@@ -12,10 +12,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 
-/*@Suite.SuiteClasses({
-        UpdateTaskTest.pause.class
-})*/
-
 public class UpdateTaskTest extends TestCase {
 
   @Test
