@@ -2,13 +2,17 @@ package com.pizzaisdavid.david.tellmetimer;
 
 import android.util.Log;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class StopWatch {
+  private static final Logger logger = LoggerFactory.getLogger(StopWatch.class);
   private StopWatchSchedule schedule;
   private UpdateTask task;
   // TODO duration should probably be in this class?
 
   public StopWatch(StopWatchSchedule schedule, UpdateTask task) {
-    Log.i("AccessTokenWrapper", "Init");
+    logger.info("Initialize");
     this.schedule = schedule;
     this.task = task;
   }
