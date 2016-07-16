@@ -5,24 +5,23 @@ import android.app.Activity;
 import java.util.Timer;
 
 public class StopWatch {
-
-  private Timer schedule;
+  private StopWatchSchedule schedule;
   private UpdateTask task;
   // TODO duration should probably be in this class?
 
   public StopWatch(Activity activity) {
-    this.schedule = new Timer();
     this.task = new UpdateTask(activity);
+    initialize();
+  }
+  public StopWatch(StopWatchSchedule schedule, UpdateTask task) {
+    this.schedule = schedule;
+    this.task = task;
     initialize();
   }
 
   private void initialize() {
     this.task.pause();
-    start();
-  }
-
-  private void start() {
-    this.schedule.scheduleAtFixedRate(this.task, 0, 1000);
+    schedule.start(task);
   }
 
   public void resume() {

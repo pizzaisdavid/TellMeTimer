@@ -30,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     startButton = (Button) findViewById(R.id.start_button);
     resetButton = (Button) findViewById(R.id.reset_button);
-    stopWatch = new StopWatch(MainActivity.this);
+    StopWatchSchedule stopWatchSchedule = new StopWatchSchedule();
+    UpdateTask updateTask = new UpdateTask(MainActivity.this);
+    stopWatch = new StopWatch(stopWatchSchedule, updateTask);
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
     audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
