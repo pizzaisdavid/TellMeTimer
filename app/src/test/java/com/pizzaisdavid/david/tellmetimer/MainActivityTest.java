@@ -6,9 +6,9 @@ import org.junit.Test;
 
 public class MainActivityTest {
 
-    @Test
-    public void swapState_False_ReturnsTrue() {
-        boolean result = false;
-        Assert.assertTrue(result);
-    }
+  @Test
+  public void swapState_False_ReturnsTrue() {
+    boolean result = false;
+    Assert.assertTrue(result);
+  }
 }

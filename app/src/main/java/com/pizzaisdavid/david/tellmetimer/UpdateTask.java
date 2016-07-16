@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import java.util.TimerTask;
 
 public class UpdateTask extends TimerTask {
 
+  public TimePeriod duration;
   private boolean isPaused;
   private Activity activity;
   private TextView totalTime;
@@ -16,8 +18,6 @@ public class UpdateTask extends TimerTask {
   private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
   private SeekBar alarmFrequency;
   private AlarmFrequencyListener alarmFrequencyListener;
-
-  public TimePeriod duration;
   private VoiceNotification voice;
 
 

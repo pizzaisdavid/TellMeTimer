@@ -85,10 +85,9 @@ public class MainActivity extends AppCompatActivity {
     if (hasFocus == true) {
       String mutedMessage = "Your phone is muted. The voice notification is disabled";
       int ringerMode = audioManager.getRingerMode();
-      if (ringerMode == AudioManager.RINGER_MODE_SILENT ||
-              ringerMode == AudioManager.RINGER_MODE_VIBRATE) {
+      if (ringerMode == AudioManager.RINGER_MODE_SILENT || ringerMode == AudioManager.RINGER_MODE_VIBRATE) {
         Toast toast = Toast.makeText(getApplicationContext(), mutedMessage, Toast.LENGTH_LONG);
-        toast.setGravity(Gravity.BOTTOM|Gravity.CENTER,0, 60);
+        toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 60);
         toast.show();
       }
     }

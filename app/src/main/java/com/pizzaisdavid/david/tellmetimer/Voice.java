@@ -28,8 +28,7 @@ public class Voice implements TextToSpeech.OnInitListener {
   public void onInit(int status) {
     if (status == TextToSpeech.SUCCESS) {
       int result = textToSpeech.setLanguage(Locale.US);
-      if (result == TextToSpeech.LANG_MISSING_DATA
-              || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+      if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
         Log.e("error", "This Language is not supported");
       }
     } else {
@@ -38,10 +37,6 @@ public class Voice implements TextToSpeech.OnInitListener {
   }
 
   public void say(String message) {
-    textToSpeech.speak(
-            message,
-            TextToSpeech.QUEUE_ADD,
-            this.map
-    );
+    textToSpeech.speak(message, TextToSpeech.QUEUE_ADD, this.map);
   }
 }

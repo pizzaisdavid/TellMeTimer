@@ -22,10 +22,12 @@ public class AlarmFrequencyListener implements SeekBar.OnSeekBarChangeListener {
   }
 
   @Override
-  public void onStartTrackingTouch(SeekBar seekBar) {}
+  public void onStartTrackingTouch(SeekBar seekBar) {
+  }
 
   @Override
-  public void onStopTrackingTouch(SeekBar seekBar) {}
+  public void onStopTrackingTouch(SeekBar seekBar) {
+  }
 
   public int getAsSeconds() {
     final int SECONDS_PER_MINUTE = 60; // change this for faster testing.

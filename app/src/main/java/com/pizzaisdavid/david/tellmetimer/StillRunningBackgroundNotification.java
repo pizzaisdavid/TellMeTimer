@@ -29,15 +29,9 @@ public class StillRunningBackgroundNotification {
     PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
     NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
 
-    builder.setSmallIcon(R.mipmap.ic_launcher)
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(false)
-            .setCategory("service")
-            .setContentTitle("TellMeTimer is still ticking.")
-            .setContentText("Touch to check.")
+    builder.setSmallIcon(R.mipmap.ic_launcher).setContentIntent(pendingIntent).setAutoCancel(false).setCategory("service").setContentTitle("TellMeTimer is still ticking.").setContentText("Touch to check.")
             //.setSubText("Tap to view documentation about notifications.")
-            .setPriority(0)
-            .setOngoing(true);
+            .setPriority(0).setOngoing(true);
     //TODO add pause and quit option?
     return builder;
   }

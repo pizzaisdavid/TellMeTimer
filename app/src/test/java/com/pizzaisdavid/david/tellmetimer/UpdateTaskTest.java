@@ -18,15 +18,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 public class UpdateTaskTest extends TestCase {
 
-    @Test
-    public void doNotUpdate() throws Exception {
-      Activity mockActivity = Mockito.mock(Activity.class);
-      UpdateTask task = new UpdateTask(mockActivity); // TODO untangle dependencies or something
-      Assert.assertEquals(0, task.duration.getAsSeconds());
-      task.update();
-      Assert.assertEquals(1, task.duration.getAsSeconds());
-      task.pause();
-      task.update();
-      Assert.assertEquals(1, task.duration.getAsSeconds());
-    }
+  @Test
+  public void doNotUpdate() throws Exception {
+    Activity mockActivity = Mockito.mock(Activity.class);
+    UpdateTask task = new UpdateTask(mockActivity); // TODO untangle dependencies or something
+    Assert.assertEquals(0, task.duration.getAsSeconds());
+    task.update();
+    Assert.assertEquals(1, task.duration.getAsSeconds());
+    task.pause();
+    task.update();
+    Assert.assertEquals(1, task.duration.getAsSeconds());
+  }
 }
