@@ -8,10 +8,9 @@ public class StopWatch {
   public StopWatch(StopWatchSchedule schedule, UpdateTask task) {
     this.schedule = schedule;
     this.task = task;
-    initialize();
   }
 
-  private void initialize() {
+  public void setup() {
     task.pause();
     schedule.start(task);
   }

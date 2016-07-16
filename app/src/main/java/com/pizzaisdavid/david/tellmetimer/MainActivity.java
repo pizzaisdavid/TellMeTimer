@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     StopWatchSchedule stopWatchSchedule = new StopWatchSchedule();
     UpdateTask updateTask = new UpdateTask(MainActivity.this);
     stopWatch = new StopWatch(stopWatchSchedule, updateTask);
+    stopWatch.setup();
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
     audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
