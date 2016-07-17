@@ -1,28 +1,44 @@
 package com.pizzaisdavid.david.tellmetimer;
 
 import android.app.Activity;
+import android.speech.tts.TextToSpeech;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
+import org.w3c.dom.Text;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(RobolectricTestRunner.class)
+@Config(constants = BuildConfig.class)
+public class UpdateTaskTest {
+  Activity mockActivity;
+  TextToSpeech mockTextToSpeech;
 
-public class UpdateTaskTest extends TestCase {
+  @Before
+  public void before() {
+    mockActivity = Mockito.mock(Activity.class);
+    mockTextToSpeech = Mockito.mock(TextToSpeech.class);
+  }
 
   @Test
-  public void doNotUpdate() throws Exception {
-    Activity mockActivity = Mockito.mock(Activity.class);
-    UpdateTask task = new UpdateTask(mockActivity); // TODO untangle dependencies or something
+  public void update() throws Exception {
+    UpdateTask task = new UpdateTask(mockActivity, mockTextToSpeech); // TODO untangle dependencies or something
     Assert.assertEquals(0, task.duration.getAsSeconds());
     task.update();
     Assert.assertEquals(1, task.duration.getAsSeconds());
+  }
+
+  @Test
+  public void doNotUpdate() throws Exception {
+    UpdateTask task = new UpdateTask(mockActivity, mockTextToSpeech);
+    Assert.assertEquals(0, task.duration.getAsSeconds());
     task.pause();
     task.update();
-    Assert.assertEquals(1, task.duration.getAsSeconds());
+    Assert.assertEquals(0, task.duration.getAsSeconds());
   }
 }
