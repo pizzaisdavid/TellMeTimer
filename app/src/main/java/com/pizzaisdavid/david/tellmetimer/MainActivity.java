@@ -5,10 +5,12 @@ package com.pizzaisdavid.david.tellmetimer;
 // TODO add app widget http://developer.android.com/guide/topics/appwidgets/index.html
 // TODO change "TellMeTimer" to "Tell Me Timer" or not!
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
     startButton = (Button) findViewById(R.id.start_button);
     resetButton = (Button) findViewById(R.id.reset_button);
     StopWatchSchedule stopWatchSchedule = new StopWatchSchedule();
-    UpdateTask updateTask = new UpdateTask(MainActivity.this);
+    TextToSpeech textToSpeech = setupTextToSpeech(MainActivity.this);
+    UpdateTask updateTask = new UpdateTask(MainActivity.this, textToSpeech);
     stopWatch = new StopWatch(stopWatchSchedule, updateTask);
     stopWatch.setup();
     isGoing = false;
@@ -77,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
         }
       }
     });
+  }
+
+  public TextToSpeech setupTextToSpeech(Activity activity) {
+    TextToSpeech textToSpeech = new TextToSpeech(activity.getApplicationContext(), new VoiceOnInitListener());
+    textToSpeech.setOnUtteranceProgressListener(new RequestAudioFocus(activity));
+    return textToSpeech;
   }
 
   @Override

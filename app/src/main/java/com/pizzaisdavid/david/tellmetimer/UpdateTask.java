@@ -25,15 +25,13 @@ public class UpdateTask extends TimerTask {
   private VoiceNotification voice;
 
 
-  public UpdateTask(Activity activity) {
+  public UpdateTask(Activity activity, TextToSpeech textToSpeech) {
     logger.info("Initializing with activity");
     this.totalTime = (TextView) activity.findViewById(R.id.total_time);
     this.countDown = (TextView) activity.findViewById(R.id.count_down);
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
     this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
     this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
-    TextToSpeech textToSpeech = new TextToSpeech(activity.getApplicationContext(), new VoiceOnInitListener());
-    textToSpeech.setOnUtteranceProgressListener(new RequestAudioFocus(activity));
     this.voice = new VoiceNotification(textToSpeech);
     this.activity = activity;
     this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
