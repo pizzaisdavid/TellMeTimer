@@ -17,9 +17,9 @@ public class Voice implements TextToSpeech.OnInitListener {
 
   public Voice(Activity activity) {
     logger.info("Initialize");
-    this.textToSpeech = new TextToSpeech(activity, this);
-    this.textToSpeech.setOnUtteranceProgressListener(new RequestAudioFocus(activity));
-    this.map = getHashMap();
+    textToSpeech = new TextToSpeech(activity, this);
+    textToSpeech.setOnUtteranceProgressListener(new RequestAudioFocus(activity));
+    map = getHashMap();
   }
 
   private HashMap getHashMap() {
@@ -41,6 +41,6 @@ public class Voice implements TextToSpeech.OnInitListener {
   }
 
   public void say(String message) {
-    textToSpeech.speak(message, TextToSpeech.QUEUE_ADD, this.map);
+    textToSpeech.speak(message, TextToSpeech.QUEUE_ADD, map);
   }
 }
