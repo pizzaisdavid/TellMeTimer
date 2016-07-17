@@ -1,6 +1,5 @@
 package com.pizzaisdavid.david.tellmetimer;
 
-// TODO make a toast when volume is muted to notify.
 // TODO app is unresponsive for a few seconds after start. Started after adding tabs.
 // TODO pick a start time or start now.
 // TODO add app widget http://developer.android.com/guide/topics/appwidgets/index.html
