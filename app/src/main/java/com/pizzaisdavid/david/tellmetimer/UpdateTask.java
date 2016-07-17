@@ -42,7 +42,7 @@ public class UpdateTask extends TimerTask {
 
   @Override
   public void run() {
-    this.activity.runOnUiThread(new Runnable() {
+    activity.runOnUiThread(new Runnable() {
       @Override
       public void run() {
         update();
@@ -54,8 +54,8 @@ public class UpdateTask extends TimerTask {
     if (isPaused == false) {
       TimePeriod untilNextAlarm = getTimeUntilNextAlarm();
       duration.tick();
-      this.totalTime.setText(TimePeriodFormat.simple(duration));
-      this.countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
+      totalTime.setText(TimePeriodFormat.simple(duration));
+      countDown.setText(TimePeriodFormat.clock(untilNextAlarm));
       if (untilNextAlarm.getAsSeconds() == 1) {
         voiceNotification();
       }
@@ -71,13 +71,13 @@ public class UpdateTask extends TimerTask {
 
   private void voiceNotification() {
     if (sayCurrentTimeCheckBox.isChecked()) {
-      this.voice.appendCurrentTimeToQueue();
+      voice.appendCurrentTimeToQueue();
     }
-    this.voice.appendPauseToQueue();
+    voice.appendPauseToQueue();
     if (sayTotalTimeCheckBox.isChecked()) {
-      this.voice.appendTotalTimeToQueue(duration);
+      voice.appendTotalTimeToQueue(duration);
     }
-    this.voice.sayQueue();
+    voice.sayQueue();
   }
 
   public void pause() {

@@ -37,10 +37,10 @@ public class StillRunningBackgroundNotification {
   }
 
   public void show() {
-    this.notificationManager.notify(this.id, this.builder.build());
+    notificationManager.notify(id, builder.build());
   }
 
   public void hide() {
-    this.notificationManager.cancel(this.id);
+    notificationManager.cancel(id);
   }
 }
