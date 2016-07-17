@@ -8,15 +8,17 @@ import java.util.TimerTask;
 
 public class TaskScheduler extends Timer {
   private static final Logger logger = LoggerFactory.getLogger(TaskScheduler.class);
+  private int delay;
+  private int period;
 
   public TaskScheduler() {
     logger.debug("Initialize");
+    delay = 0;
+    period = 1000;
   }
 
   public void start(TimerTask task) {
-    int DELAY = 0;
-    int PERIOD = 1000;
-    logger.debug("Starting task with a delay of {} and a period of {}", DELAY, PERIOD);
-    scheduleAtFixedRate(task, DELAY, PERIOD);
+    logger.debug("Starting task with a delay of {} and a period of {}", delay, period);
+    scheduleAtFixedRate(task, delay, period);
   }
 }
