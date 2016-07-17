@@ -63,7 +63,7 @@ public class UpdateTask extends TimerTask {
   }
 
   private TimePeriod getTimeUntilNextAlarm() {
-    int alarmFrequencyInSeconds = this.alarmFrequencyListener.getAsSeconds();
+    int alarmFrequencyInSeconds = alarmFrequencyListener.getAsSeconds();
     int timeSinceLastAlarm = duration.getAsSeconds() % alarmFrequencyInSeconds;
     logger.debug("Time since last alarm: {}", timeSinceLastAlarm);
     return new TimePeriod(alarmFrequencyInSeconds - timeSinceLastAlarm);
@@ -81,16 +81,16 @@ public class UpdateTask extends TimerTask {
   }
 
   public void pause() {
-    this.isPaused = true;
+    isPaused = true;
   }
 
   public void resume() {
-    this.isPaused = false;
+    isPaused = false;
   }
 
   public void reset() {
-    this.duration = new TimePeriod(0);
-    this.totalTime.setText("0 seconds");
-    this.countDown.setText("00:00");
+    duration = new TimePeriod(0);
+    totalTime.setText("0 seconds");
+    countDown.setText("00:00");
   }
 }
