@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 
 public class StopWatch {
   private static final Logger logger = LoggerFactory.getLogger(StopWatch.class);
-  private StopWatchSchedule schedule;
+  private TaskScheduler schedule;
   private UpdateTask task;
   // TODO duration should probably be in this class?
 
-  public StopWatch(StopWatchSchedule schedule, UpdateTask task) {
+  public StopWatch(TaskScheduler schedule, UpdateTask task) {
     logger.info("Initializing");
     this.schedule = schedule;
     this.task = task;

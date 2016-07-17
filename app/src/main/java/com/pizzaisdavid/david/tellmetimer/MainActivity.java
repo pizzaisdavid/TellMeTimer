@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity {
     logger.info("Initializing");
     startButton = (Button) findViewById(R.id.start_button);
     resetButton = (Button) findViewById(R.id.reset_button);
-    StopWatchSchedule stopWatchSchedule = new StopWatchSchedule();
+    TaskScheduler taskScheduler = new TaskScheduler();
     TextToSpeech textToSpeech = setupTextToSpeech(MainActivity.this);
     AlarmFrequencyListener alarmFrequencyListener = new AlarmFrequencyListener(MainActivity.this);
     UpdateTask updateTask = new UpdateTask(MainActivity.this, textToSpeech, alarmFrequencyListener);
-    stopWatch = new StopWatch(stopWatchSchedule, updateTask);
+    stopWatch = new StopWatch(taskScheduler, updateTask);
     stopWatch.setup();
     isGoing = false;
     resetButton.setVisibility(View.INVISIBLE);
