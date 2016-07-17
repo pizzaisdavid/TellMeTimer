@@ -22,7 +22,7 @@ public class UpdateTask extends TimerTask {
   private CheckBox sayTotalTimeCheckBox; // TODO make a class that deals with all the graphics
   private SeekBar alarmFrequency;
   private AlarmFrequencyListener alarmFrequencyListener;
-  private VoiceNotification voice;
+  private VoiceNotification voiceNotification;
 
 
   public UpdateTask(Activity activity, TextToSpeech textToSpeech, AlarmFrequencyListener alarmFrequencyListener) {
@@ -32,7 +32,7 @@ public class UpdateTask extends TimerTask {
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
     this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
     this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
-    this.voice = new VoiceNotification(textToSpeech);
+    this.voiceNotification = new VoiceNotification(textToSpeech);
     this.activity = activity;
     this.alarmFrequencyListener = alarmFrequencyListener;
     this.alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener); // TODO this breaks the test, move this or something
@@ -71,20 +71,22 @@ public class UpdateTask extends TimerTask {
 
   private void voiceNotification() {
     if (sayCurrentTimeCheckBox.isChecked()) {
-      voice.appendCurrentTimeToQueue();
+      voiceNotification.appendCurrentTimeToQueue();
     }
-    voice.appendPauseToQueue();
+    voiceNotification.appendPauseToQueue();
     if (sayTotalTimeCheckBox.isChecked()) {
-      voice.appendTotalTimeToQueue(duration);
+      voiceNotification.appendTotalTimeToQueue(duration);
     }
-    voice.sayQueue();
+    voiceNotification.sayQueue();
   }
 
   public void pause() {
+    logger.debug("pause");
     isPaused = true;
   }
 
   public void resume() {
+    logger.debug("resume");
     isPaused = false;
   }
 
