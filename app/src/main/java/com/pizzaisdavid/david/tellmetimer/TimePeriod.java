@@ -13,7 +13,7 @@ public class TimePeriod {
   }
 
   public TimePeriod(int seconds) {
-    logger.info("Initialize with {} seconds", seconds);
+    logger.info("Initializing with {} seconds", seconds);
     this.seconds = seconds;
   }
 

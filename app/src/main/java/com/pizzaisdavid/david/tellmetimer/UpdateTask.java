@@ -25,7 +25,7 @@ public class UpdateTask extends TimerTask {
 
 
   public UpdateTask(Activity activity) {
-    logger.info("Initialize with activity");
+    logger.info("Initializing with activity");
     this.totalTime = (TextView) activity.findViewById(R.id.total_time);
     this.countDown = (TextView) activity.findViewById(R.id.count_down);
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);

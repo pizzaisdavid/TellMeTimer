@@ -10,7 +10,7 @@ public class StopWatch {
   // TODO duration should probably be in this class?
 
   public StopWatch(StopWatchSchedule schedule, UpdateTask task) {
-    logger.info("Initialize");
+    logger.info("Initializing");
     this.schedule = schedule;
     this.task = task;
   }

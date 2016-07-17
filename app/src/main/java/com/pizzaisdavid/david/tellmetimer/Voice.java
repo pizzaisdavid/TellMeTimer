@@ -16,7 +16,7 @@ public class Voice implements TextToSpeech.OnInitListener {
   private HashMap<String, String> map;
 
   public Voice(Activity activity) {
-    logger.info("Initialize");
+    logger.info("Initializing");
     textToSpeech = new TextToSpeech(activity, this);
     textToSpeech.setOnUtteranceProgressListener(new RequestAudioFocus(activity));
     map = getHashMap();
