@@ -33,14 +33,15 @@ public class Voice implements TextToSpeech.OnInitListener {
     if (status == TextToSpeech.SUCCESS) {
       int result = textToSpeech.setLanguage(Locale.US);
       if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-        Log.e("error", "This Language is not supported");
+        logger.error("This Language is not supported");
       }
     } else {
-      Log.e("error", "Initialization Failed!");
+      logger.error("Initialization Failed!");
     }
   }
 
   public void say(String message) {
+    logger.info("say: {}", message);
     textToSpeech.speak(message, TextToSpeech.QUEUE_ADD, map);
   }
 }
