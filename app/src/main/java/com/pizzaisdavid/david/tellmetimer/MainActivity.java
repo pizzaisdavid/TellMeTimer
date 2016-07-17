@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    logger.info("onCreate");
+    logger.info("Initializing");
     startButton = (Button) findViewById(R.id.start_button);
     resetButton = (Button) findViewById(R.id.reset_button);
     StopWatchSchedule stopWatchSchedule = new StopWatchSchedule();
