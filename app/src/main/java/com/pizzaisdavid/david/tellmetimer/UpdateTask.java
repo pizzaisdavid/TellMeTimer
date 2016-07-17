@@ -26,7 +26,7 @@ public class UpdateTask extends TimerTask {
 
 
   public UpdateTask(Activity activity, TextToSpeech textToSpeech, AlarmFrequencyListener alarmFrequencyListener) {
-    logger.info("Initializing with activity");
+    logger.info("Initializing");
     this.totalTime = (TextView) activity.findViewById(R.id.total_time);
     this.countDown = (TextView) activity.findViewById(R.id.count_down);
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
@@ -35,7 +35,7 @@ public class UpdateTask extends TimerTask {
     this.voice = new VoiceNotification(textToSpeech);
     this.activity = activity;
     this.alarmFrequencyListener = alarmFrequencyListener;
-    this.alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
+    this.alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener); // TODO this breaks the test, move this or something
     this.duration = new TimePeriod();
     this.isPaused = false;
   }

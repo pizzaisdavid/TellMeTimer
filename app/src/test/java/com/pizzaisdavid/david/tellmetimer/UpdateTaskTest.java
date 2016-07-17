@@ -18,16 +18,18 @@ import org.w3c.dom.Text;
 public class UpdateTaskTest {
   Activity mockActivity;
   TextToSpeech mockTextToSpeech;
+  AlarmFrequencyListener mockAlarmFrequencyListener;
 
   @Before
   public void before() {
     mockActivity = Mockito.mock(Activity.class);
     mockTextToSpeech = Mockito.mock(TextToSpeech.class);
+    mockAlarmFrequencyListener = Mockito.mock(AlarmFrequencyListener.class);
   }
 
   @Test
   public void update() throws Exception {
-    UpdateTask task = new UpdateTask(mockActivity, mockTextToSpeech); // TODO untangle dependencies or something
+    UpdateTask task = new UpdateTask(mockActivity, mockTextToSpeech, mockAlarmFrequencyListener); // TODO untangle dependencies or something
     Assert.assertEquals(0, task.duration.getAsSeconds());
     task.update();
     Assert.assertEquals(1, task.duration.getAsSeconds());
@@ -35,7 +37,7 @@ public class UpdateTaskTest {
 
   @Test
   public void doNotUpdate() throws Exception {
-    UpdateTask task = new UpdateTask(mockActivity, mockTextToSpeech);
+    UpdateTask task = new UpdateTask(mockActivity, mockTextToSpeech, mockAlarmFrequencyListener);
     Assert.assertEquals(0, task.duration.getAsSeconds());
     task.pause();
     task.update();
