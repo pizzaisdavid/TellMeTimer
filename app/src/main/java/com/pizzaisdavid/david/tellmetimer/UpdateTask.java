@@ -1,6 +1,7 @@
 package com.pizzaisdavid.david.tellmetimer;
 
 import android.app.Activity;
+import android.speech.tts.TextToSpeech;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -31,7 +32,9 @@ public class UpdateTask extends TimerTask {
     this.sayCurrentTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_current_time);
     this.sayTotalTimeCheckBox = (CheckBox) activity.findViewById(R.id.check_box_total_duration);
     this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
-    this.voice = new VoiceNotification(activity);
+    TextToSpeech textToSpeech = new TextToSpeech(activity.getApplicationContext(), new VoiceOnInitListener());
+    textToSpeech.setOnUtteranceProgressListener(new RequestAudioFocus(activity));
+    this.voice = new VoiceNotification(textToSpeech);
     this.activity = activity;
     this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
     this.alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);

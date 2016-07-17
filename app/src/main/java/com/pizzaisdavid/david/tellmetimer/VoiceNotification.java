@@ -1,6 +1,9 @@
 package com.pizzaisdavid.david.tellmetimer;
 
 import android.app.Activity;
+import android.speech.tts.TextToSpeech;
+
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,8 +13,8 @@ public class VoiceNotification extends Voice {
 
   private String queue;
 
-  public VoiceNotification(Activity activity) {
-    super(activity);
+  public VoiceNotification(TextToSpeech textToSpeech) {
+    super(textToSpeech);
     this.queue = "";
   }
 
