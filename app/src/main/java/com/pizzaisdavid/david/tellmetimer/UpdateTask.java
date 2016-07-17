@@ -25,7 +25,7 @@ public class UpdateTask extends TimerTask {
   private VoiceNotification voice;
 
 
-  public UpdateTask(Activity activity, TextToSpeech textToSpeech) {
+  public UpdateTask(Activity activity, TextToSpeech textToSpeech, AlarmFrequencyListener alarmFrequencyListener) {
     logger.info("Initializing with activity");
     this.totalTime = (TextView) activity.findViewById(R.id.total_time);
     this.countDown = (TextView) activity.findViewById(R.id.count_down);
@@ -34,7 +34,7 @@ public class UpdateTask extends TimerTask {
     this.alarmFrequency = (SeekBar) activity.findViewById(R.id.alarm_frequency);
     this.voice = new VoiceNotification(textToSpeech);
     this.activity = activity;
-    this.alarmFrequencyListener = new AlarmFrequencyListener(activity);
+    this.alarmFrequencyListener = alarmFrequencyListener;
     this.alarmFrequency.setOnSeekBarChangeListener(this.alarmFrequencyListener);
     this.duration = new TimePeriod();
     this.isPaused = false;

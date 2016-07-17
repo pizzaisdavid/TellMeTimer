@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
     resetButton = (Button) findViewById(R.id.reset_button);
     StopWatchSchedule stopWatchSchedule = new StopWatchSchedule();
     TextToSpeech textToSpeech = setupTextToSpeech(MainActivity.this);
-    UpdateTask updateTask = new UpdateTask(MainActivity.this, textToSpeech);
+    AlarmFrequencyListener alarmFrequencyListener = new AlarmFrequencyListener(MainActivity.this);
+    UpdateTask updateTask = new UpdateTask(MainActivity.this, textToSpeech, alarmFrequencyListener);
     stopWatch = new StopWatch(stopWatchSchedule, updateTask);
     stopWatch.setup();
     isGoing = false;
